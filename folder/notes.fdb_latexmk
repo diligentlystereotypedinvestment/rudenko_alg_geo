@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1704387171 "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" "notes.pdf" "notes" 1704387172 0
-  "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" 1704387171 6639 4caca2a6b6e2648c10c62cc80ba19dae ""
+["pdflatex"] 1704397889 "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" "notes.pdf" "notes" 1704397889 0
+  "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" 1704397889 6646 29ce7499f10bcb999884b2ff684cd74a ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -65,8 +65,8 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1681674066 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1681674057 7883455 c04e6df33dbb88cf1091b597115cf46a ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "notes.aux" 1704387172 275 15f0fdf64429f398d135c23bfdf93156 "pdflatex"
-  "notes.tex" 1704387171 6639 4caca2a6b6e2648c10c62cc80ba19dae ""
+  "notes.aux" 1704397889 275 15f0fdf64429f398d135c23bfdf93156 "pdflatex"
+  "notes.tex" 1704397889 6646 29ce7499f10bcb999884b2ff684cd74a ""
   "pascals-theorem.PNG" 1704382914 46529 71addeaeb5b824fce7cd49ebac7532e4 ""
   "proj-plane.jpg" 1704386649 24677 f02b9f0455d19e21b8a4a57658fe21ef ""
   (generated)
