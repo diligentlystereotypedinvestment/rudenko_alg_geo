@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage[margin = 1 in]{geometry}
-\usepackage{amsmath, amsfonts, graphicx, amsthm}
+\usepackage{amsmath, amsfonts, graphicx, amsthm, quiver}
 
 \newcommand{\F}{\mathbf{F}}
 \newcommand{\C}{\mathbb{C}}
@@ -10,11 +10,13 @@
 \newcommand{\A}{\mathbb{A}}
 \newcommand{\Aff}{\mathrm{Aff}}
 \renewcommand{\vec}{\overrightarrow}
+\newcommand{\PGL}{\mathrm{PGL}}
 
 \newtheorem{fact}{Fact}
 \newtheorem{definition}{Definition}
 \newtheorem{example}[]{Example}
 \newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
 
 \title{Algebraic Geometry Notes}
 \author{Raman Aliakseyeu}
@@ -23,7 +25,7 @@
 \begin{document}
     \maketitle
     \noindent \textbf{Course by Daniil Rudenko.} \par 
-    We will start with projective geometry, and then add algebra to it. No schemes in this course, we will be closer to the 19th century stuff. We are not following any particular book(s). Number one book is "Algebraic Geometry" by Shafarevich, our goal is all of chapter 1. We will start with projective geometry, a book for that is (on canvas). 
+    We will start with projective geometry, and then add algebra to it. No schemes in this course, we will be closer to the 19th century stuff. We are not following any particular book(s). Number one book is "Algebraic Geometry" by Shafarevich, our goal is all of chapter 1. We will start with projective geometry, a book for that is Prasolov (roughly). 
     \section{Projective Geometry} 
     \subsection{Lecture 1} 
         Algebraic geometry studies solutions to systems of algebraic equations/algebraic curves (which are loci of solutions of algebraic equations). One of the most famous renaissance geometry results is the Pascal theorem: the points $G, H, I$ in the diagram below are colinear for any configuration of $A, B, C, D, E, F$ on the circle. 
@@ -74,8 +76,7 @@
         Another way to think of $\P_\R^2$ is as a sphere with antipodal points identified. \par
         ``ChatGPT can make you Snake 4: Snake but on the projective plane.''
         
-    \subsection{Lecture 2}
-    (OH Wednesday 5PM)\par 
+    \subsection{Lecture 2} 
     A \textbf{geometry} is a set $X$ along with a group $G$ acting on $X$, $x \mapsto gx$, which defines `equivalences' between subsets of $X$. 
     \begin{example}
         \begin{itemize}
@@ -132,7 +133,7 @@
     If $A = [X_0: \dots :X_n] \in \P^n$. If $X_n \neq 0$ then $A = [X_0/X_n: \dots : X_{n-1}/X_n, 1]$, points of this form this are in bijection with $\A^n$. Indeed, $\P^n = \A^n \sqcup \A^{n-1} \sqcup \dots \sqcup \A^0$. The points with $X_n = 0$ are in bijection with points in $\P^n$ (divide all entrees by the first non-zero entry from the right). For example, $\P_\R^1 = \R \cup \infty$, where $\R$ is in bijection with points $[X_0/X_1:1]$ and $\infty$ represents $[1:0]$.  \par 
     \textbf{Barycentric coordinates} are basically the same thing as homogeneous coordinates but in a different language. Imagine putting masses $m_1, m_2, m_3$ at the vertices of a triangle, then look at their center of mass. If $m_1 = m_2 = m_3$ then this point is the centroid. More precisely, if $O$ is any point, we have that $M$, the center of mass for some $m_1, m_2, m_3$ (sum non-zero) is
     $$\vec{OM} = \frac{m_1\vec{OA_1} + m_2\vec{OA_2} + m_3\vec{OA_3}}{m_1 + m_2 + m_3}$$
-    If we put this triangle onto $\R^3$ with vertices at $(1:0:0)$, $(0:1:0)$, $(0:0:1)$, then the center of mass of $m_1, m_2, m_3$ with respect to the origin will have homogeneous coordinates $[m_1:m_2:m_3]$. \par 
+    As such, $O$ has homogeneous coordinates $(m_1:m_2:m_3)$ in the projective plane.  \par 
     A homogeneous polynomial is one where each term has the same degree. Then it makes sense to talk about $P([x_0, \dots, x_d]) = 0$ for a homogeneous polynomial $P$, since such polynomials respect the equivalence relation of homogeneous coordinates. 
     \begin{definition}
         \textbf{Projective variety} is a subset of $\P_F^n$ which is the set of solutions of a system:
@@ -146,5 +147,87 @@
     \begin{example}
         Say $P(x, y, z) y - x^2$, which we can think of as points $[x:y:1]$ that satisfy the parabola. We can relabel $[x:y:1]$ into $[X:Y:Z]$ with $x = X/Z, y = Y/Z$, so the set of points satisfying $P_1([X:Y:Z])$ is the set such that $X^2 = YZ$. So for instance $[0:1:0]$ is also a solution. We can think of this as the parabola becoming an ellipse because it closes at infinity. 
     \end{example}
+
+    \subsection{Lecture 3}
+    \textbf{Observation}: If we have an injective linear map $f: V_1 \to V_2$, and $L$ is a line in $V_1$, then $f(L)$ is also a line. So, $f$ induces a map $\overline{f}: \P(V_1) \to \P(V_2)$.
+    \begin{definition}
+        If $V_1 = V_2$ in the above, then the set of maps $\P(V) \to \P(V)$ induced by linear maps $V \to V$ form the \textbf{projective linear group} $\PGL(V)$. If $V = \F^n$, we denote $\PGL(V) = \PGL_n(\F)$. 
+    \end{definition}
+    $\PGL_n(F)$ has a simple description: Let $\Phi: \GL_n(\F) \to \PGL_n(\F)$ be defined by $f \to \overline{f}$. Then $\ker \Phi$ is the set of all diagonal matrices (since those are identity on one-dim spaces), which is isomorphic to $F^\times$. So, $\PGL_n(\F) = \GL_n/F^\times$ by first isomorphism theorem. \par
+    Now consider $\P_\F^1$, and $\begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix} \in \GL_n(\F)$. Then $\overline{f}([x: y]) = [ax+by: cx+dy]$. Note that we can interpret $\P_\F^1 = \A_\F^1 \cup \infty$, where $A_\F^1$ can be thought of as the set of all $[x:1]$, and $\infty$ can be thought of as $[0:1]$. So on $\A_\F^1$, $[ax+by: cx+dy] = [\frac{ax+b}{cx+d}:1]$. So on the affine line, $\overline{f}$ sends $x$ to $\frac{ax+b}{cx+d}$. \par 
+    If $f(x) = 1/x$, then $[x:y] = [x/y:1]$ gets sent to $[y/x:1] = [y:x]$ by $\overline{f}$. Hence, $[0:1] \mapsto [1:0]$, or in other words $0 \mapsto \infty$ in $\P_\F^1$. This corresponds to the analytic intuition: as $x$ gets closer to $0$, $1/x$ gets closer to infinity. \par 
+    Now look at $\P_\F^2$, and consider the linear transformation 
+    $$A = \begin{bmatrix}
+        a_{11} & a_{12} & a_{13} \\
+        a_{21} & a_{22} & a_{23} \\
+        a_{31} & a_{32} & a_{33}
+    \end{bmatrix}$$
+    $\overline{A}$ sends $[x_1: x_2: x_3]$ to $[a_{11}x_1 + a_{12}x_2 + a_{13}x_3: \dots]$. So, as a map on $\A_F^2$, 
+    $$\overline{A}(u, v) =  \left( \frac{a_{11}x_1 + a_{12}x_2 + a_{13}x_3}{a_{31}x_1 + a_{32}x_2 + a_{33}x_3}, \frac{a_{11}x_1 + a_{12}x_2 + a_{13}x_3}{a_{31}x_1 + a_{32}x_2 + a_{33}x_3}\right)$$
+    ``If you have a dictator you don't like and you want to get rid of them, you can just take a projective transformation of them and send them to infinity. That's what they used to do with dictators.'' \par
+    By this he means, by choosing the last row of $A$ appropriately, we can get $\overline{A}$ to send any given line in $\A_\F^2$ to infinity. 
+    \begin{theorem}
+        Consider points $A_1, \dots A_{n+2}$, $B_1, \dots, B_{n+2}$ in $\P^n$ such that $\{A_i\}$ and $\{B_i\}$ are in \textit{general position} (on $\P^n$ this means for any $i$, $A_1, \dots, \hat{A_i}, \dots, A_{n+2}$ span $F^{n+1}$ when considered as vectors in $F^{n+1}$). Then there exists $\overline{f} \in \PGL_n(\F)$ such that $\overline{f}(A_j) = B_j$ for $1 \leq j \leq n+2$. 
+    \end{theorem}
+    \begin{proof}
+        Let $A_i = [v_i]$, $B_i = [w_i]$, where $[v_i]$ is the equivalence class of some vector $v_i \in \F^{n+1}$. Then by assumption $v_1, \dots, v_{n+1}$ and $w_1, \dots, w_{n+1}$ are bases of $F^{n+1}$, so there exists a unique linear transformation $f_1$ such that $f_1(v_i) = w_i$. Then, $f_1(v_{n+2}) = \tilde{v}_{n+2}$. Since $v_{n+2} = \lambda_1v_1 + \dots + \lambda_{n+1}v_{n+1}$, this maps to $\tilde{v}_{n+2} = \lambda_1w_1 + \dots \lambda_{n+1}w_{n+1}$. Also $w_{n+2} = \mu_1w_1 + \dots + \mu_{n+1}w_{n+1}$. Note that this means $\lambda_i, \mu_i \neq 0$ for any $i$. Then, let $f_2$ be a linear map sending $w_i$ to $\frac{\mu_i}{\lambda_i}w_i$ so $f_2 \circ f_1(v_1) = \frac{\mu_1}{\lambda_i}w_i$ and $f_2 \circ f_1(v_{n+2}) = w_{n+2}$. As such, $\overline{f_2f_1}$ sends $A_i$ to $B_i$. Uniqueness is left as an exercise. 
+    \end{proof}
+    \begin{theorem}
+        [Pappus' Theorem] Consider the diagram 
+        \begin{center}
+            \includegraphics[width = 0.7\linewidth]{pappus.png}
+        \end{center} 
+        The points $X, Y, Z$ are always colinear. [Note: the diagram he drew in class had points labelled differently, I changed them because this diagram is from the internet. ]
+    \end{theorem}
+    \begin{proof}
+        Take the line through $Y$ and $Z$, send it via a projective transformation to the line at infinity. Then, to show $X$ is on the same line as $Y, Z$ it suffices to show that after the transformation $\overline{AB'}$ is parallel to $\overline{A'B}$ (marked red in the diagram below:)
+        \begin{center}
+            \includegraphics[width = 0.8\linewidth]{pappus_step_2.png}
+        \end{center} 
+        This is true by angle chasing using the parallel line postulate.  
+    \end{proof}
+
+    For $\P^1$, recall that $\PGL_2(\F) = \{\frac{ax+b}{cx+d} \mid ad - bc \neq 0\}$. By the theorem above, elements of $\PGL_2(\F)$ send any three distinct points to any three distinct points. This is not true however for four points, so it makes sense that there would be some sort of invariant associated with four points. 
+    \begin{definition}
+        If $x_1, x_2, x_3, x_4 \in \P^1$ are distinct, \textbf{cross ratio} of these points is defined 
+        $$[x_1, x_2, x_3, x_4] = \frac{(x_1-x_2)(x_3-x_4)}{(x_1-x_4)(x_3-x_2)}$$
+        If $x_4 = \infty$, 
+        $$[x_1, x_2, x_3, \infty] = \frac{x_1 - x_2}{x_3 - x_2}$$
+        Similarly define for any other $x_i = \infty$. 
+    \end{definition}
+    \begin{theorem}
+        If $f \in \PGL_2(\F)$ then $[f(x_1), f(x_2), f(x_3), f(x_4)] = [x_1, x_2, x_3, x_4]$. So, cross ratio is an invariant of $\PGL_2(\F)$.
+    \end{theorem}
+    \begin{proof}
+        $\PGL_2(\F)$ as a group is generated by the following transformations: $x \mapsto x + b$, $x \mapsto ax$, $x \mapsto 1/x$. It is easy to see that the first two leave cross ratio unchanged. The third is an algebra bash. 
+    \end{proof}
+    Note that $[x_1, x_2, x_3, x_4] = [x_{\sigma(1)}, x_{\sigma(2)}, x_{\sigma(3)}, x_{\sigma(4)}]$ for $\sigma \in K$, the Klein $4$-group in $S_4$, so in fact $\sigma \in S_4$ can only change $[x_1, x_2, x_3, x_4]$ into $\lambda, 1-\lambda, 1/\lambda, 1-1/\lambda, \lambda/(\lambda-1), 1/(1-\lambda)$. Proving this will be an exercise. \par 
+    \begin{proposition}
+        Let $l_1, l_2 \in \P^2$, $O \in \P^2$ not on $l_1$ or $l_2$. Consider a projection of $l_1$ onto $l_2$ about $O$, as in the diagram (with $O$ unlabelled on top): 
+        \begin{center}
+            \includegraphics[width = 0.4\linewidth]{crossratio.png}
+        \end{center}
+        More precisely, if $A' \in l_1$ and $\vec{OA'}$ is a line in $\P^2$ containing both $O$ and $A'$, this map is $A' \mapsto A = \vec{OA'} \cap l_2$. This is a projective transformation. 
+    \end{proposition} 
+    Note that using this diagram, the invariance of cross ratio can be interpreted as the equivalence of ratios segments, as such: 
+    $$\frac{|C'A'|}{|C'B'|}: \frac{|D'A'|}{|D'B'|} = \frac{|CA|}{|CB|}: \frac{|DA|}{|DB|}$$
+    [A proof of this equality with elementary trigonometry is in Prasolov]
+    \begin{proof}
+        Let $L_1, L_2$ be planes and $O$ be a line in $V = \F^3$ not contained in either plane. Take the plane $V/O$, then $\P(V/O) = \P^1$. Then $L_i \to V \to V/O$, the composition of inclusion and quotient, gives us a map $\P^1 \to \P^1$. Indeed, we have the commutative diagram
+        \[\begin{tikzcd}
+            & V && V \\
+            {L_1=\mathbb{P}^1} && {V/O=\mathbb{P}^1} && {L_2 = \mathbb{P}^1}
+            \arrow[hook, from=2-1, to=1-2]
+            \arrow[hook, from=2-5, to=1-4]
+            \arrow[from=1-2, to=2-3]
+            \arrow[from=1-4, to=2-3]
+            \arrow[from=2-1, to=2-3]
+            \arrow[from=2-5, to=2-3]
+        \end{tikzcd}\]
+        With the bottom two arrows being isomorphisms. Composing the left arrow with the inverse of the right arrow gives us a map in $\GL_2(F)$ between $L_1$ and $L_2$, which induces the projection map in $\PGL_2(F)$.  
+    \end{proof}
+    
 
 \end{document} 
