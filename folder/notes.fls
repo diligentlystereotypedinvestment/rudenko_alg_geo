@@ -572,6 +572,11 @@ INPUT ./crossratio.png
 INPUT crossratio.png
 INPUT ./crossratio.png
 INPUT ./crossratio.png
+INPUT ./pappus dual.png
+INPUT ./pappus dual.png
+INPUT pappus dual.png
+INPUT ./pappus dual.png
+INPUT ./pappus dual.png
 INPUT notes.aux
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb

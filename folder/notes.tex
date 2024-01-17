@@ -228,6 +228,55 @@
         \end{tikzcd}\]
         With the bottom two arrows being isomorphisms. Composing the left arrow with the inverse of the right arrow gives us a map in $\GL_2(F)$ between $L_1$ and $L_2$, which induces the projection map in $\PGL_2(F)$.  
     \end{proof}
-    
 
+    \subsection{Lecture 4}
+    (OH 5PM) \par 
+    [TODO: there are some errors in this lecture] \par
+    Recall: We consider a field $\F$, mostly $\R, \C$ or $\F_p$. As we defined before, $\P_\F^n = (\F^{n+1} \setminus 0)/\F^\times$, where the identification is $(x_0, \dots, x_n) \sim (\lambda x_0, \dots, \lambda x_n)$. An equivalence class like this is denotes via homogeneous coordinates $[x_0: \dots : x_n]$. We can identify the affine plane $\A_\F^n$ by considering the set of points with $x_n \neq 0$ (i.e. by excluding the lines at infinity). \par 
+    Note we may write $R = \F[x_0, \dots, x_n] = R_1 \oplus R_2 \oplus \dots$ where $R_d$ is a vector space of homogeneous polynomials with degree of terms being $d$ (so $x_0^{k_0}x_1^{k_1} \dots x_n^{k_n}$ with $\sum k_i = d$). $R_0$ is the base field. $R_1$ is the dual space $V^*$ of $\F^n$ (since all homog. polys of deg 1 are precisely all linear maps). $R_2 = \mathbb{S}^2 V^*$, and in general $R_d = \mathbb{S}^d V^*$. 
+    \begin{definition}
+        Let $F \in R_d$ be a homog. polynomial with $d \neq 0$. Then the set of solutions of an equation $F(x_0, \dots, x_n) = 0$ is called a \textbf{hypersurface} of degree $d$ in $\P^n$.  
+    \end{definition}
+    \begin{example}
+        In $\P^3$, $x_0^3 - x_1^3 + x_2x_3^2 + x_3^3 = 0$. The intersection of this with $\A^3$ (obtained by dividing all terms by $x_3$) we get $(x_0/x_3)^3 - (x_1/x_3)^3 + x_2/x_3 + 1 = 0$. The rest of this hypersurface is in $\P^3 \setminus \A^3 = H$, it is defined by $x_0^3 - x_1^3 = 0$. Since $H \cong \P^2$, we can do the same procedure to reduce this hypersurface to something we can draw in $\A^2$, getting $y_0^3 - y_1^3 = 0$, which are three lines intersecting at the origin (if $\F = \C$). Going the other way from $y_0^3 + y_1^3 + y_2 + 1 = 0$ by introducing another variable and going into $\P^3$ is called \textit{homogenization}. 
+    \end{example}
+    \begin{definition}
+        A \textbf{projective variety} is a \textit{finite} intersection of hypersurfaces. 
+    \end{definition}
+    (Note: you do not get more sets if you extend this to an infinite system, by the Hilbert basis theorem, to be covered later). \par 
+    \begin{definition}
+        A hypersurface $X = \{F = 0\}$ for $F \in R_d$ is \textbf{irreducible} precisely when $F$ is irreducible. 
+    \end{definition}
+    \begin{example}
+        \begin{itemize}
+            \item $x_0x_1 = 0$ in $\P^2$ is a union of two lines. Not irreducible polynomial, so the hypersurface is not irreducible also. In general, any union of two lines is not irreducible. 
+            \item $x_0^2 + x_1^2 = x_2^2$ is irreducible, so its hypersurface, a circle in $\A^2$. 
+        \end{itemize}
+    \end{example}
+    Assume $\F = \C$. Consider  the action of $\PGL_{n+1}$ on degree $d$ hypersurfaces in $\P^n$. Take $d = 1$, then this action is transitive, as we saw last time. Thus up to projective transformations all hyperplanes are the same. If $d = 2$, $F$ looks like 
+    $$\sum a_{ij} x_i x_j = (x_0, \dots, x_n) A \begin{pmatrix}
+        x_0 \\
+        \vdots \\
+        x_n
+    \end{pmatrix} = x^\top A x$$
+    Subject to a projective transformation, $x = Uy$ for some $y \in \P^n$. Thus, $x^\top A x \mapsto y^\top U^\top A Uy = 0$.  
+    \begin{theorem}
+        Any quadric is a projectively equivalent to a quadric $\lambda_0 x_0^2 + \lambda_1 x_1^2 + \dots + \lambda_n x_n^2 = 0$
+    \end{theorem}
+    [TODO: This is equivalent to (some) matrix diagonalization result, didn't catch which one that was.]
+    Exercise: prove this my hand for $n = 2$. \par 
+    So, if $\F = \R$, for $n = 2$ the picture is complicated, for example $x_0^2 - x_1^2 - x_2^2 = 0$ is a double cone. But for $\F = \C$ things become simpler because everything can be reduced to the cases $x_0^2 + x_1^2 + \dots + x_i^2 = 0$. So in $\P_\C^2$ we have lines, intersections of two lines, and conics, for $i = 1, 2, 3$ respectively. Thus the action of $\PGL_3$ has three orbits, namely those classes. \par 
+    Now we discuss projective duality. Suppose we are working in $\P^2$. A line here is defined by an equation $ax + by + cz = 0$ with not all $a, b, c = 0$, modulo rescaling. Thus lines in $\P^2$ also form a projective space. This has some striking applications. \par
+    Conceptually, if we have $\P^n = \P(V)$ for an $n$-dim vector space $V$, hyperplanes in $\P^n$ are in bijection with the elements of $\P(R_1) = \P(V^*)$. \par 
+    The \textbf{duality principle} can be stated as follows. Consider any theorem about points and lines in $\P^2$, replacing lines by points and vice versa gives another valid theorem. 
+    \begin{example}
+        Recall Pappus' theorem. The dual to this theorem can be drawn as follows: (TODO: wrong diagram)
+        \begin{center}
+            \includegraphics[width = 0.7\linewidth]{pappus dual.png}
+        \end{center}
+        The statement is that lines $a$, $b$, and $c$ (passing through $C_i$) all pass through $O$. 
+    \end{example} 
+    In a dualization of a theorem, for every line there is a point, for every point there is a line. If $n$ lines intersect at a point, in the dual theorem $n$ points will lie on one line. \par 
+    In $\P^3$ a similar duality holds: points correspond to planes, lines correspond to lines, planes correspond to points. \par 
+    Three important facts about $V^*$: 1. $\dim V = \dim V^*$ since $V$ and $V^*$ are (not canonically) isomorphic, 2. $V \cong (V^*)^*$ canonically via an isomorphism $v \mapsto (\phi: V \to F \mapsto \phi(v))$, 3. There is an inclusion reversing bijection between subspaces of $V$ and $V^*$, which is equivalent to $\dim W + \dim W^\top = \dim V$. 
 \end{document} 
