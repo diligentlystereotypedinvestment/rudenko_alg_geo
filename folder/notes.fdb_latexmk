@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1705546607 "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" "notes.pdf" "notes" 1705546609 0
-  "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" 1705546606 27280 a53005755554526ae62de4c8fd8775c1 ""
+["pdflatex"] 1705596763 "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" "notes.pdf" "notes" 1705596764 0
+  "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" 1705596762 33279 3ab98185184a64b6ba9d90574d8d543f ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -42,6 +42,7 @@
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1248133631 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb" 1248133631 36118 fad905eba93cff5bce1e185fe980a177 ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb" 1248133631 31764 459c573c03a4949a528c2cc7f557e217 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1248133631 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb" 1215737283 136101 f533469f523533d38317ab5729d00c8a ""
   "/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
@@ -149,11 +150,12 @@
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1681674057 7883455 c04e6df33dbb88cf1091b597115cf46a ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
   "crossratio.png" 1704991106 55358 70d5c61d6415eac888371bbbffd10009 ""
-  "notes.aux" 1705546608 582 df43ff91b494e0ac98966f9ba52471af "pdflatex"
-  "notes.tex" 1705546606 27280 a53005755554526ae62de4c8fd8775c1 ""
+  "notes.aux" 1705596764 685 c476f4e74d3020794a600a5bb326dbea "pdflatex"
+  "notes.tex" 1705596762 33279 3ab98185184a64b6ba9d90574d8d543f ""
   "pappus dual.png" 1705423048 14309 b14f22ae155d26b92cae66c8a642e33a ""
   "pappus.png" 1704989694 66256 194e1a6f6c1e42af8625ff186ecc8a61 ""
   "pappus_step_2.png" 1705003043 125592 21e5000087cd0ef0756ebda8bf658f00 ""
+  "pascal.png" 1705592306 74748 d5c04148a2ef08cb790b468ab24884ea ""
   "pascals-theorem.PNG" 1704382914 46529 71addeaeb5b824fce7cd49ebac7532e4 ""
   "proj-plane.jpg" 1704386649 24677 f02b9f0455d19e21b8a4a57658fe21ef ""
   "quiver.sty" 1705001517 1606 6e061d19851dd595ea9f806dbc16500b ""

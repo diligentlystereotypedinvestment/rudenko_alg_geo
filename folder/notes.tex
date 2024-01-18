@@ -17,6 +17,7 @@
 \newtheorem{example}[]{Example}
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
 
 \title{Algebraic Geometry Notes}
 \author{Raman Aliakseyeu}
@@ -279,4 +280,60 @@
     In a dualization of a theorem, for every line there is a point, for every point there is a line. If $n$ lines intersect at a point, in the dual theorem $n$ points will lie on one line. \par 
     In $\P^3$ a similar duality holds: points correspond to planes, lines correspond to lines, planes correspond to points. \par 
     Three important facts about $V^*$: 1. $\dim V = \dim V^*$ since $V$ and $V^*$ are (not canonically) isomorphic, 2. $V \cong (V^*)^*$ canonically via an isomorphism $v \mapsto (\phi: V \to F \mapsto \phi(v))$, 3. There is an inclusion reversing bijection between subspaces of $V$ and $V^*$, which is equivalent to $\dim W + \dim W^\top = \dim V$. 
+
+    \subsection{Lecture 5}
+    Let's talk about conics a little bit more. If $\P_\F^n = \P(\F^{n+1})$, so $[x_0: x_1: \dots : x_n]$ are homogeneous coordinates on $\P_\F^n$, and $P(x_0, \dots, x_n)$ is a homogeneous polynomial of degree $d$, $\{[x_0, \dots, x_n] \mid P(x_0, \dots, x_{n+1}) = 0\} \subset \P^n$ is a hypersurface of degree $d$. For $d = 1$ this is the familiar hyperplane. If $d = 2$ this is a \textit{quadric}. \par 
+    Over $\C$ (polynomials with coeffs in $\C$), every quadric is either a union of two lines, a cross of two lines, or a conic (which are all the same on the projective plane). The conic is called the \textit{smooth} quadric. \par 
+    \begin{theorem}[Pascal]
+        \hfill
+        \begin{center}
+            \includegraphics[width = 0.4\linewidth]{pascal.png}
+        \end{center}
+        For any ellipse, putting distinct $A, B, C, D, E, F$ on it and connecting them a la Pappus' theorem gives us colinear intersection points $X$, $Y$, $Z$. 
+    \end{theorem}
+    ``Who thinks this is beautiful? If you don't [points to door]''\par 
+    In this way Pappus' theorem is not surprising because both a pair of lines and a conic are quadrics over $\C$. \par 
+    \begin{lemma}[Chasles]
+        Let points $A_1, A_2, A_3, A_4$ and $X$, $Y$ lie on a conic. Then 
+        $$[(XA_1), (XA_2), (XA_3), (XA_4)] =  [(YA_1), (YA_2), (YA_3), (YA_4)]$$
+    \end{lemma}
+    Notice that there is a bijection between points of a conic and lines through some particular point $X$ on a conic $C$. Indeed, a line through $X$ is either tangent to the conic or intersects it at some other point. Associating the tangent line to $X$ and the other lines to their intersection points, we associate the points of $C$ with $\P^1$. Indeed, the result above follows by using the two bijections onto $\P_1$ given by $X$ and $Y$, and concluding that there is a projective transformation mapping the $X$ configuration to the $Y$ configuration. This however requires some details we haven't gone over, so below is an elementary proof:
+    \begin{proof}
+        (TODO: diagram) First, assume the conic $C$ is a circle in $\R^2 \subset \P_\R^2$. If the points are ordered $A_1, \dots, A_4$ from left to right, let $U$ and $V$ be intersection points of a line $A_1A_4$ through $XA_2, XA_3$. Then
+        $$[XA_1, \dots, XA_4] := [X_1, U, V, X_4] = \pm \frac{S_{A_1XY} S_{VXA_1}}{S_{A_1XA_2}S_{UXV}} = \frac{\sin \angle X_1XU \sin \angle VXA_1}{\sin \angle A_1XA_2 \sin \angle UXV}$$
+        where $S_{ABC}$ is the notation for the area of triangle $ABC$. But by [these angles from $X$ and $Y$ are called something I forget what], we know that they remain invariant if we replace $X$ with $Y$. We thus have shown that the cross ratio remains the same. 
+    \end{proof}
+    \begin{proof}
+        [Proof: (Of Pascal's)] By the lemma above, 
+        $$[A_1B_1, A_1B_2, A_1B_3, A_1A_2] = [A_3B_1, A_3B_2, A_3B_3, A_3A_2]$$
+        Now label the two intersection points above the line $XYZ$ in the diagram $S$ and $T$. Then by definition of cross ratio of four lines, 
+        $$[B, Z, S, A_2] = [T, X, B_3, A_2]$$
+        by picking the transversal line to be $A_2B_1$ and $A_2B_3$ for the left and right cross ratios respectively. But this quantity is also equal to $[(B_1Y), (ZY), (SY), (A_2Y)]$. We want $X$ and $Z$ to be colinear with $Y$, let $X'$ be the intersection of the line $ZY$ with $A_2B_3$. Then, 
+        $$[(B_1Y), (ZY), (SY), (A_2Y)] = [T, X', B_3, A_2] = [T, X, B_3, A_2]$$
+        This implies $X = X'$, which concludes the proof. 
+    \end{proof}
+    Our goal now is to go towards Bezouit's theorem. The statement of the theorem is as follows: In $\P_\C^2$ let $X$ and $Y$ be projective curves such that they do not have common irreducible components. Then the number of points in their intersection is less than or equal to the product of their degrees, and in fact (hard part) is \textit{equal} up to multiplicity. Of course, it's hard because it's hard to define exactly what `up to multiplicity' means. Take two concentric circles $x^2 + y^2 = 1$ and $x^2 + y^2 = 2$ in $\A^2$. These only have solutions once you homogenize them and pass over to the complex projective plane. Then, $x^2 + y^2 = z^2, x^2 + y^2 + 2z^2$ have solutions $[1:i:0], [1:-i:0]$. By Bezouit's these points have to have intersection multiplicty $2$, so in fact they are \textit{tangent points}. \par 
+    For now, we will only prove the easier upper bound on the number of intersection points. 
+    \begin{theorem}[Sylvester]
+        Let $A(x) = a_mx^m + a_{m-1}x^{m-1} + \dots a_0 = 0$ and $B(x)$ be polynomials of degree $m$ and $n$ respectively. They have a common factor if the following $(m+n) \times (m+n)$ matrix
+        $$\begin{bmatrix}
+            a_m & a_{m-1} & \dots & a_0 & 0 & \dots & 0 \\
+            0 & a_m & \dots & a_1 & a_0 & \dots & 0 \\
+            & & \vdots & & \\
+            0 & 0 & \dots & a_m & \dots & & a_0 \\
+            b_n & b_{n-1} & \dots & &  b_0 & \dots & 0 \\
+            0 & b_n & \dots & & & \dots & 0 \\
+            & & \vdots & & \\
+            0 & 0 & \dots b_n & & \dots & & b_0 \\
+        \end{bmatrix}$$
+        (where $a_i$ appear in the first $n$ rows, $b_j$ appear in the last $m$ rows) has determinant $0$. The determinant is called the \textbf{resultant} of $A$ and $B$. 
+    \end{theorem}
+    \begin{proof}
+        $A$ and $B$ have a common factor iff there exist non-zero polynomials $U$ and $V$ of degrees less than $n$ and $m$ respectively, such that $A\cdot U = B \cdot V$. This is a linear combination in the first $n$ rows being equal to a linear combination of the last $m$ rows, hence this condition holds iff $\det = 0$.  
+    \end{proof}
+    You can use this theorem to solve systems of polynomial equations by eliminating a variable, writing the condition that there is a solution in terms of the resultant. This is highly impractical if the degrees of equations are large, but is a useful proof technique. 
+
+    
+
+
 \end{document} 
