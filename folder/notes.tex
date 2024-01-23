@@ -11,6 +11,8 @@
 \newcommand{\Aff}{\mathrm{Aff}}
 \renewcommand{\vec}{\overrightarrow}
 \newcommand{\PGL}{\mathrm{PGL}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\Z}{\mathbb{Z}}
 
 \newtheorem{fact}{Fact}
 \newtheorem{definition}{Definition}
@@ -53,7 +55,7 @@
         \begin{fact}
             If $\F = \C$, then $p(x) = 0$ has exactly $d$ solutions if counted with multiplicity. 
         \end{fact} 
-        We would hope for something like that but for $k > 1$. Bezoiut's theorem kind of satisfies that, but the picture is more complicated. For example, take a line and a hyperbola. While we would expect $4$ solutions up to multiplicity, but take a line intersecting one of the components of the hyperbola transversally that is parallel to one of the other component's asymptotes. However, everything becomes nicer if we change the complex plane to the projective plane. The study of geometry on the projective plane is the projective geometry, and that's what we will study first. \par 
+        We would hope for something like that but for $k > 1$. Bezout's theorem kind of satisfies that, but the picture is more complicated. For example, take a line and a hyperbola. While we would expect $4$ solutions up to multiplicity, but take a line intersecting one of the components of the hyperbola transversally that is parallel to one of the other component's asymptotes. However, everything becomes nicer if we change the complex plane to the projective plane. The study of geometry on the projective plane is the projective geometry, and that's what we will study first. \par 
         \begin{definition} \label{def:proj_plane}
             Let $\F$ be a field. A \textbf{projective space} $\P_\F^n$ is the set of lines in the vector space $\F^{n+1}$. 
         \end{definition}
@@ -312,10 +314,10 @@
         $$[(B_1Y), (ZY), (SY), (A_2Y)] = [T, X', B_3, A_2] = [T, X, B_3, A_2]$$
         This implies $X = X'$, which concludes the proof. 
     \end{proof}
-    Our goal now is to go towards Bezouit's theorem. The statement of the theorem is as follows: In $\P_\C^2$ let $X$ and $Y$ be projective curves such that they do not have common irreducible components. Then the number of points in their intersection is less than or equal to the product of their degrees, and in fact (hard part) is \textit{equal} up to multiplicity. Of course, it's hard because it's hard to define exactly what `up to multiplicity' means. Take two concentric circles $x^2 + y^2 = 1$ and $x^2 + y^2 = 2$ in $\A^2$. These only have solutions once you homogenize them and pass over to the complex projective plane. Then, $x^2 + y^2 = z^2, x^2 + y^2 + 2z^2$ have solutions $[1:i:0], [1:-i:0]$. By Bezouit's these points have to have intersection multiplicty $2$, so in fact they are \textit{tangent points}. \par 
+    Our goal now is to go towards Bezout's theorem. The statement of the theorem is as follows: In $\P_\C^2$ let $X$ and $Y$ be projective curves such that they do not have common irreducible components. Then the number of points in their intersection is less than or equal to the product of their degrees, and in fact (hard part) is \textit{equal} up to multiplicity. Of course, it's hard because it's hard to define exactly what `up to multiplicity' means. Take two concentric circles $x^2 + y^2 = 1$ and $x^2 + y^2 = 2$ in $\A^2$. These only have solutions once you homogenize them and pass over to the complex projective plane. Then, $x^2 + y^2 = z^2, x^2 + y^2 + 2z^2$ have solutions $[1:i:0], [1:-i:0]$. By Bezout's these points have to have intersection multiplicty $2$, so in fact they are \textit{tangent points}. \par 
     For now, we will only prove the easier upper bound on the number of intersection points. 
     \begin{theorem}[Sylvester]
-        Let $A(x) = a_mx^m + a_{m-1}x^{m-1} + \dots a_0 = 0$ and $B(x)$ be polynomials of degree $m$ and $n$ respectively. They have a common factor if the following $(m+n) \times (m+n)$ matrix
+        Let $A(x) = a_mx^m + a_{m-1}x^{m-1} + \dots a_0 = 0$ and $B(x)$ be polynomials of degree $m$ and $n$ respectively. They have a common factor of degree $\geq 1$ if and only if the following $(m+n) \times (m+n)$ matrix
         $$\begin{bmatrix}
             a_m & a_{m-1} & \dots & a_0 & 0 & \dots & 0 \\
             0 & a_m & \dots & a_1 & a_0 & \dots & 0 \\
@@ -333,7 +335,25 @@
     \end{proof}
     You can use this theorem to solve systems of polynomial equations by eliminating a variable, writing the condition that there is a solution in terms of the resultant. This is highly impractical if the degrees of equations are large, but is a useful proof technique. 
 
-    
-
-
+    \subsection{Lecture 6}
+    Note that to generalize Sylvester's theorem to also work for polynomials over a ring and not a field we need to use Gauss' lemma. 
+    \begin{theorem}
+        Suppose that $f(x) = a_m(x-t_1)\dots (x-t_m)$, and $g(x) = b_n(x-s_1)\dots (x-s_n)$. Then their resultant is
+        $$\Res(f, g) = a_m^n b_n^m \prod_{i=1}^m \prod_{j=1}^n (t_i - s_j)$$
+    \end{theorem}
+    \begin{proof}
+        Let's view $\Res(f, g)$ as a polynomial in $\Z[a_m, b_n, t_1, \dots, t_m, s_1, \dots, s_n]$ (can do by Vieta's formulas). Looking at the resultant matrix, we can extract an $a_m$ and $b_n$ from every row of the determinant, we get $\Res = a_m^n b_n^m P(t_1, \dots, t_m, s_1, \dots, s_n)$. \par 
+        Now we mention a little trick: for $f(x)$ with coefficients in a unique factorization domain, $f(x_0) = 0$ iff $(x-x_0)$ divides $f(x)$. Indeed, take $\tilde{f}(x) = f(x + x_0) = \tilde{a}_nx^n + \dots + \tilde{a}_0$. But then $f(x) = \tilde{a}_n(x-x_0)^n + \dots + \tilde{a}_0$, which $(x - x_0)$ divides if and only if $\tilde{a}_0 = 0$, i.e. $x_0$ is a root. \par 
+        Thus, $P$ is divisible by $(t_i - s_j)$, since considering $P$ as a polynomial with coefficeints in $\Z[t_1, \dots, \hat{t}_i, \dots, t_m, s_1, \dots]$. Thus, $P(s_j) = 0$ implies $(t_i - s_j) \mid P$. Note that $(t_i - s_j)$ are pairwise coprime, as such 
+        $$\Res(f, g) = Ca_m^n b_n^m \prod \prod (t_i - s_j)$$
+        Note that the product $\prod \prod (t_i - s_j)$ has the same degree $nm$ as $\Res(f, g)$ (exercise), so by plugging in a point we realize $C = 1$. 
+    \end{proof}
+    (Discriminants, Resultants, and Multidimensional Determinants - very underrated book)\par 
+    \begin{theorem}
+        [Weak Bezout] Let $F$ be an infinite field, consider two curves with no common irreducible components in $\P_\F^2$, defined by $P(X, Y, Z) = 0$, $Q(X, Y, Z) = 0$ with $P$ and $Q$ homogeneous (no common irreducible components means $P$ and $Q$ are coprime). Then, $P$ and $Q$ have at most $\deg P \deg Q$ solutions. 
+    \end{theorem}
+    \begin{proof}
+        Let $\deg P = m$, $\deg Q = n$. Assume the system $\{P = 0, Q = 0\}$ has $nm + 1$ solutions of the form $(X_i, Y_i, Z_i)$. Note there exists a coordinate system such that \textbf{1}. $P$ and $Q$ are not divisible by $Z$ and \textbf{2}. $Z_i \neq 0$ \textbf{3}. $\frac{Y_1}{Z_1}, \dots, \frac{Y_{n+m}}{Z_{n+m}}$. Then we have $f(x, y) = \frac{P(X, Y, Z)}{Z^m}$, $g(x, y) = \frac{Q(X, Y, Z)}{Z^n}$ are polynomials of degree $m$ and $n$ respectively in $X/Z$, $Y/Z$. They also have $nm + 1$ solutions $(x_i, y_i)$ with all $y_i$ distinct, and $f$ and $g$ have no common factor of degree $\geq 1$. Let's view $f(x, y), g(x, y)$ as polynomials in $(\F[y])[x]$. Note that $\Res(f, g)$, a polynomial in $\F[y]$, is nonzero with roots $y_i, \dots, y_{nm+1}$. It remains to show that $\deg \Res(f, g) < nm$. Left as a (non-trivial) exercise. 
+    \end{proof}
+    An application of this theorem. Suppose we are working in $\P_\C^2 = \P(\C^3)$. Curves of degree $1$ are lines, they form $\P(V^*) = \P^2$ as we have seen before. Curves of degree $2$ of form $ax^2 + bxy + cy^2 + dxz + eyz + fz^2$ form a space $\P^5$ (one less than the coordinates). All degree $2$ curves containing a point $[x_0, y_0, z_0]$ form a ($4$-dimensional) hyperplane in $\P^5$. Space of degree $2$ curves containing $2$ points $P_1, P_2$ will have dimension at least $3$, but it can be $4$. Degree $2$ curves containing $P_1, P_2, P_3$ will have dimension at least $2$, ... we thus can show that any $5$ points in $\P^2$ lie on a curve of degree $2$. 
 \end{document} 
