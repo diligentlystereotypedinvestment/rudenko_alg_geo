@@ -195,7 +195,7 @@
     For $\P^1$, recall that $\PGL_2(\F) = \{\frac{ax+b}{cx+d} \mid ad - bc \neq 0\}$. By the theorem above, elements of $\PGL_2(\F)$ send any three distinct points to any three distinct points. This is not true however for four points, so it makes sense that there would be some sort of invariant associated with four points. 
     \begin{definition}
         If $x_1, x_2, x_3, x_4 \in \P^1$ are distinct, \textbf{cross ratio} of these points is defined 
-        $$[x_1, x_2, x_3, x_4] = \frac{(x_1-x_2)(x_3-x_4)}{(x_1-x_4)(x_3-x_2)}$$
+        $$[x_1, x_2, x_3, x_4] = \frac{(x_1-x_3)(x_2-x_4)}{(x_1-x_4)(x_3-x_2)}$$
         If $x_4 = \infty$, 
         $$[x_1, x_2, x_3, \infty] = \frac{x_1 - x_2}{x_3 - x_2}$$
         Similarly define for any other $x_i = \infty$. 
@@ -356,4 +356,69 @@
         Let $\deg P = m$, $\deg Q = n$. Assume the system $\{P = 0, Q = 0\}$ has $nm + 1$ solutions of the form $(X_i, Y_i, Z_i)$. Note there exists a coordinate system such that \textbf{1}. $P$ and $Q$ are not divisible by $Z$ and \textbf{2}. $Z_i \neq 0$ \textbf{3}. $\frac{Y_1}{Z_1}, \dots, \frac{Y_{n+m}}{Z_{n+m}}$. Then we have $f(x, y) = \frac{P(X, Y, Z)}{Z^m}$, $g(x, y) = \frac{Q(X, Y, Z)}{Z^n}$ are polynomials of degree $m$ and $n$ respectively in $X/Z$, $Y/Z$. They also have $nm + 1$ solutions $(x_i, y_i)$ with all $y_i$ distinct, and $f$ and $g$ have no common factor of degree $\geq 1$. Let's view $f(x, y), g(x, y)$ as polynomials in $(\F[y])[x]$. Note that $\Res(f, g)$, a polynomial in $\F[y]$, is nonzero with roots $y_i, \dots, y_{nm+1}$. It remains to show that $\deg \Res(f, g) < nm$. Left as a (non-trivial) exercise. 
     \end{proof}
     An application of this theorem. Suppose we are working in $\P_\C^2 = \P(\C^3)$. Curves of degree $1$ are lines, they form $\P(V^*) = \P^2$ as we have seen before. Curves of degree $2$ of form $ax^2 + bxy + cy^2 + dxz + eyz + fz^2$ form a space $\P^5$ (one less than the coordinates). All degree $2$ curves containing a point $[x_0, y_0, z_0]$ form a ($4$-dimensional) hyperplane in $\P^5$. Space of degree $2$ curves containing $2$ points $P_1, P_2$ will have dimension at least $3$, but it can be $4$. Degree $2$ curves containing $P_1, P_2, P_3$ will have dimension at least $2$, ... we thus can show that any $5$ points in $\P^2$ lie on a curve of degree $2$. 
+
+    \subsection{Lecture 7}
+    Consider $\P^5 = \P(\S^2V^*)$, the space of quadrics $F = a_1x^2 + a_2xy + \dots + a_6$ in $\P^2$, corresponding to the coordinate $[a_1:a_2\dots :a_6]$. For a $P \in \P^2$, the set $H_P$ of quadrics containing $P$ forms a hyperplane in $\P^5$. \par 
+    [The proof of this will probably be on the exam]
+    \begin{theorem}
+        Let $P_1, \dots, P_5 \in \P^2$ be points in general position (no three points lie on the same line). Then there exists a unique quadric containing $P_1, \dots, P_5$. 
+    \end{theorem}
+    \begin{proof}
+        Consider $H_1 \cap \dots \cap H_5$ in the space of quadrics $\P_\C^5$ (of dimension $6$), need to show that this is precisely one point. Since intersecting hyperplanes drops dimensions by at most $1$, we know that $H_{P_1} \cap \dots H_{P_5}$ has dimension at least $1$. Thus there is a quadric containing $P_1, \dots, P_5$. Assume it is not unique, so $C_1$, $C_2$ are two distinct quadrics containing those points, as such $|C_1 \cap C_2| \geq 5$ which is impossible, say taking $C_1$, $C_2$ to be lines. (TODO: confused about dimensions. Are we considering $\P^5$ in $\C^6$?)
+    \end{proof}
+    [Reproducing this or something like it will be on the midterm]
+    \begin{theorem}
+        [Pascal's theorem on conic] Take $C = 0$ defining a conic, $A_1, \dots, A_6$, $X = A_1A_5 \cap A_2A_4$, .... Then $X, Y, Z$ lie on the same line. (TODO diagram, $A_1, \dots, A_6$ go clockwise on ellipse)
+    \end{theorem}
+    \begin{proof}
+        Let $L_{UV}$ be the equation for the line through $U, V$. Consider curves $L_{A_6A_2}L_{A_5A_3}L_{A_1A_4}$ and $L{A_1A_5}L_{A_2A_4}L_{A_3A_6}$. These intersect at $A_1, \dots, A_6, X, Y, Z$. For varying $\lambda \in \C$, consider the pencil of cubic curves $L_{A_6A_2}L_{A_5A_3}L_{A_1A_4} + \lambda L{A_1A_5}L_{A_2A_4}L_{A_3A_6}$ in $\P^9$ (projective space of cubic curves). Consider any point $P \in C$ that is not $A_1, \dots, A_6$. Then there exists $\lambda_p \in \C$ such that $L_{A_6A_2}L_{A_5A_3}L_{A_1A_4} + \lambda_p L{A_1A_5}L_{A_2A_4}L_{A_3A_6}$ [Take $\lambda_p = \frac{-L_{A_4A_2}(P)L_{...}(P)L_{...}(P)}{L(...)L(...)L(...)}$]. But then $L_{A_6A_2}L_{A_5A_3}L_{A_1A_4} + \lambda_p L{A_1A_5}L_{A_2A_4}L_{A_3A_6} = CL$ (TODO)
+    \end{proof}
+
+
+\section{Algebraic Geometry}
+    For $\A^n$, $R = F[x_1, \dots, x_n]$, and an ideal $I \subset R$ we have a \textbf{vanishing ideal} $V(I) = \{(a_1, \dots, a_n) \in \A^n \mid f(a_1, \dots, a_n) = 0 \text{ for any } f \in I\}$. For finitely generated $I = (f_1,\dots, f_n) = \{g_1f_1 + \dots + g_nf_n\}$, we have $V(I)$ is the set of solutions of $\{f_i(x_1, \dots, x_n) = 0\}$. We will prove soon that all ideals of $F[x_1, \dots, x_n]$ are finitely generated. People name $V(I)$ \textbf{affine sets}, affine algebraic sets, affine algebraic varieties, or affine closed sets. \par 
+    Some properties: 
+    \begin{enumerate}
+        \item $V((1)) = \emptyset$.
+        \item $V((0)) = \A^n_\F$.
+        \item $V(I_1 \cap I_2) = V(I_1) \cup V(I_2)$ (inclusion $\supset$ is obvious. For $p \in V(I_1 \cup I_2)$, if $p \not \in V(I_1)$, $f \in I_1$, so $f(p) \neq 0$, same with $I_2$, so $fg \in I_1 \cap I_2$... )
+        \item $\cap V(I_\alpha) = V(\sum I_\alpha)$
+    \end{enumerate}
+    These properties imply that affine sets are closed sets of a topology, called the \textbf{Zariski topology}. \par 
+    ``I have 20 more minutes? *Claps hands*''\par 
+    \begin{example}
+        \begin{enumerate}
+            \item If $\A_\C^1$, $R = \C[x]$, thus affine algebraic sets are either finite collections of points or $\A^1$.
+            \item In $\A^2_\C$ we have a more complicated picture, we could have finite collections of points + quadrics and lines. 
+        \end{enumerate}
+    \end{example}
+
+    \begin{definition}
+        Suppose $R$ is a ring (commutative with $1$). $R$ is \textbf{Noetherian} if (TFAE)
+        \begin{enumerate}
+            \item Every ideal $I \subset R$ is finitely generated. 
+            \item Every ascending chain $I_1 \subset I_2 \subset I_3 \subset \dots \subset R$ stabilizes, so for some $N$, $I_{N} = I_{N+1} = I_{N+2} = \dots$. 
+        \end{enumerate} 
+    \end{definition}
+    Equivalence of these two conditions is on HW3. Geometrically, the Noetherian condition will tell us that infinite systems don't give us any new options for affine sets. \par 
+    \begin{example}
+        \begin{enumerate}
+            \item A field $\F$, every ideal is generated by $0$ or $1$. 
+            \item $\Z$, $\F[x]$, generated by $a \in \Z$ and $x^n$ respectively. 
+            \item If $R$ is Noetherian, $R/I$ is Noetherian. 
+            \item Hilbert basis theorem: If $R$ is Noetherian, $R[x]$ is Noetherian. 
+            \item $F[x_1, \dots, x_n]$ is Noetherian. 
+            \item By the above $F[x_1, \dots, x_n]/I$ is Noetherian. In particular, we will study $\C[x, y]/(x^2 + y^2 + 1)$, vanishing functions on a circle. 
+        \end{enumerate}
+    \end{example}
+    (Akhil Spectral theory notes are very good)\par 
+    \begin{theorem}
+        [Hilbert Basis Theorem] $R$ Noetherian if and only if $R[x]$ is Noetherian. 
+    \end{theorem}
+    \begin{proof}
+        Say $I \subset R[x]$ is an ideal, and let $f_1$ be an element in $I$ of the smallest degree, $f_2$ be the element of smallest degree in $I \setminus (f_1)$, $f_3$ smallest degree in $I \setminus (f_1, f_2)$, ... . Then we get a chain of distinct ideals $(f_1) \subset (f_1, f_2) \subset (f_1, f_2, f_3) \subset \dots$. Let's look at the leading coefficients $a_i$ of $f_i$. Then, $(a_1, \dots, ) = (a_1, \dots, a_n)$ is finitely generated. Thus, $a_{n+1} \in (a_1, \dots, a_n)$, and as such $a_{n+1} = a_1\lambda_1 + \dots + a_n\lambda_n$. Suppose we have $f_{n+1} \in (f_1, \dots, f_n)$. Then, let 
+        $$g = f_{n+1} - \lambda_1 f_1 x^{\deg f_{n+1} - \deg f_1} - \dots - \lambda_n f_n x^{\deg f_{n+1} - \deg f_n}$$
+        so $\deg g < \deg f_{n+1}$, but $g \in I \setminus (f_1, \dots, f_n)$, which contradicts the choice of $f_{n+1}$. 
+    \end{proof}
+    
 \end{document} 
