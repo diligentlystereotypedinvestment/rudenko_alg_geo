@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1706201477 "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" "notes.pdf" "notes" 1706201478 0
-  "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" 1706201476 42986 01369d49f441c0af025ec7e654ea89cb ""
+["pdflatex"] 1706633468 "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" "notes.pdf" "notes" 1706633470 0
+  "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" 1706633468 49311 4f80213c1b4ca17ee6d0509ae8b5f933 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -150,8 +150,8 @@
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1681674057 7883455 c04e6df33dbb88cf1091b597115cf46a ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
   "crossratio.png" 1704991106 55358 70d5c61d6415eac888371bbbffd10009 ""
-  "notes.aux" 1706201478 998 a761e7358cc0374c7f6a542abb890920 "pdflatex"
-  "notes.tex" 1706201476 42986 01369d49f441c0af025ec7e654ea89cb ""
+  "notes.aux" 1706633470 1101 c5bbad67c2e4c481e8e064b35380f22c "pdflatex"
+  "notes.tex" 1706633468 49311 4f80213c1b4ca17ee6d0509ae8b5f933 ""
   "pappus dual.png" 1705423048 14309 b14f22ae155d26b92cae66c8a642e33a ""
   "pappus.png" 1704989694 66256 194e1a6f6c1e42af8625ff186ecc8a61 ""
   "pappus_step_2.png" 1705003043 125592 21e5000087cd0ef0756ebda8bf658f00 ""
