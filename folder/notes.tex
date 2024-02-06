@@ -478,7 +478,7 @@
     Another definition, $A$ is finite over $B$ [$A$ is finite as a $B$-module] if there exist $a_1, \dots, a_n$ if for every $a \in A$ there exist $b_1, \dots, b_n$ such that $a = b_1a_1 + \dots + b_na_n$.\par 
     Here's a key bit from commutative algebra: 
     \begin{theorem}
-        Let $k$ be a field of characteristic $0$. Suppose that $A$ is a finitely generated algebra over $k$, so $A = k[x_1, \dots, x_n]/I$. Assume $A$ is a field. Then $A$ is a finite algebraic extension of $k$. 
+        Let $k$ be a field of characteristic $0$. Suppose that $A$ is a finitely generated algebra over $k$. Assume $A$ is a field. Then $A$ is a finite algebraic extension of $k$. 
     \end{theorem}
     (Choosing $k = \C$, we know that every finitely generated algebra over $\C$ that's a field must be $\C$ itself. )\par
     We now want to show that in the correspondence we talked about last lecture, finite sets of points correspond to maximal ideals of $k[x_1, \dots, x_n]$. \par 
@@ -512,12 +512,69 @@
         $$\det \begin{bmatrix}
             b_{11}-a & b_{12} & \dots & b_{1n} \\
             b_{21} & b_{22}-a & \dots & b_{2n} \\
-            \vdots
+            \vdots \\
             b_{n1} & b_{n2} & \dots & b_{nn}-a \\
         \end{bmatrix} = 0$$
-        There exists an \textit{adjunct} matrix $X^*$ to the matrix $X$ above such that $X^*X = \det X \Id X*$. Then we also get 
+        There exists an \textit{adjunct} matrix $X^*$ to the matrix $X$ above such that $X^*X = \det X \Id X^*$. Then we also get 
         $(\det X)a_i = 0$ and $\det X = b_1a_1 + \dots $ (TODO) 
     \end{proof}
-    Final lemma: $B[x] - B$ is finite.
+    Final 
+    \begin{lemma}
+         $B[x] - B$ is finite.
+    \end{lemma}
+
+    \subsection{Lecture 10}
+    Now we should prove Theorem 17 from above, because everything relies on it. Let's restate it: 
+    \begin{theorem}
+        Let $k$ be an infinite field, and $A$ is a finitely generated algebra over $k$. Then $A$ is a finite algebraic extension of $k$. 
+    \end{theorem}
+    We introduced three lemmas last time. Let's do a forth:
+    \begin{lemma}
+        Let $A$ be finite over $B$, If $A$ is a field, then $B$ is a field. 
+    \end{lemma}
+    \begin{proof}
+        Suppose $b \neq 0 \in B$. Then, $\frac{1}{b} \in A$, consider 
+        $$\frac{1}{b}^n + a_{n-1}\frac{1}{b}^{n-1} + \dots + a_0 = 0$$
+        multiplying both sides by $b^n$, and factoring, we get that $1/b$ is in $B$. 
+    \end{proof}
+    \begin{theorem}
+        [Noether Normalization Theorem] Let $A$ be a finitely generated algebra over $k$, so $A = k[a_1, \dots, a_n]$. Then there exist $y_1, \dots, y_m \in A$ such that 1. $y_1, \dots, y_m$ are algebraically independent and 2. $A$ is finite over $k[y_1, \dots, y_m]$. 
+    \end{theorem}
+    \begin{example}
+        Take $\C[x, y]/(y^2 - x^3y - 1)$. Consider that $y$ is a root of a monic polynomial with coefficients in $\C[x]$ in this field, namely $y^2 - x^3y - 1 = 0$. Hence this field is finite over $\C[x]$. However, the same does not hold for $x$, so this field is not finite over $\C[y]$. Geometrically, the finiteness condition means that every time we get the same number of points on $y^2 - x^3y - 1$ for any fixed $x$ (up to multiplicity). This is not true for a fixed $y$. 
+    \end{example}
+    We can now show the commutative algebra result using Noether normalization. By it there exist $y_1, \dots, y_m$ such that $A$ is finite over $k[y_1, \dots, y_m]$. Thus, by lemma 4, $k[y_1, \dots, y_m]$ is a field, which can only be the case if $m = 0$, so $A$ is finite as an algebra over $k$. Thus, every element in $A$ is algebraic over $k$. \par 
+    ``The elephant is not a field, unless it's not an elephant... You like the elephant? Everybody likes elephants, have you seen an elephant?'' \par 
+    To prove Noether Normalization we need yet another lemma:
+    \begin{lemma}
+        Take $f \neq 0 \in k[x_1, \dots, x_n]$, $\deg f = d$. There exists a change of variable
+         $$x'_1 = x_1 - \alpha_1 x_n, \dots, x'_{n-1} = x_{n-1} - \alpha_{n-1}x_n, x_n' = x_n$$
+        such that $f(x_1' + \alpha_1x_n, \dots, x_{n-1}'+\alpha_{n-1}x_n, x_n)$ has a term $cx^d_n$ with $c \neq 0$.  
+    \end{lemma}
+    \begin{proof}
+        Write $f = f_0 + f_1 + \dots + f_d$ where $f_i$ is a homogeneous degree $i$ polynomial. Then, $f_d$ is non-zero, so there exist $\alpha_i$ such that $f_d(\alpha_1, \dots, \alpha_{n-1}, 1)$, the coefficient of $x^d_n$, is non-zero.  
+    \end{proof}
+    \begin{proof}
+        [Proof (Of Noether Normalization):] By induction, $A[a_1, \dots, a_n]$ finitely generated. Consider $k[x_1, \dots, x_n] \xrightarrow{\phi} A$ be a surjective homomorphism. If $I = \ker \phi = 0$ we are done. If $I \neq 0$, consider $f \neq 0 \in I$. Base case $n=1$: $A = k[a]$, $f(a) = 0$ implies $a$ is integral over $k$. Thus $k[a] - k$ is finite. Assume for $n-1$ this is known, take $k[a_1, \dots, a_n]$. Choose $\alpha_1, \dots, \alpha_{n-1}$ so $f(x_1' + \alpha_1x_n, \dots, x_{n-1}'+\alpha_{n-1}x_n, x_n)$ has a non-zero $x_n^d$ term, so $a_1' = a_1 - \alpha_1a_n$, ..., $a_{n-1}' = a_{n-1} - \alpha_{n-1}a_n$. As such, 
+        $$\frac{1}{c}f(a_1' + \alpha_1a_n, \dots, a_n) = 0$$
+        Hence $a_n$ is a root of a monic polynomial with coefficient in $k[a'_1, \dots, a'_{n-1}]$. Hence, $k[a_1, \dots, a_n] - k[a_1', \dots, a_{n-1}']$ is finite, using the inductive assumption, but now we can find $k[y_1, \dots, y_m]$ such that $k[a_1, \dots, a_n] - k[y_1, \dots, y_m]$ is finite. 
+    \end{proof}
+    \begin{definition}
+        If $X$ is an afffine algebraic set $\subset \A^n$, a function $f: X \to k$ is called \textbf{regular} or ``polynomial'' if there exists $F \in k[x_1, \dots, x_n]$ such that for all $(a_1, \dots, a_n) \in X$ we have $f(a_1, \dots, a_n) = f(a_1, \dots, a_n)$.  
+    \end{definition}
+    \begin{example}
+        Consider $X \subset \A^2$, $X = V(y-x^2)$. Then we have $f(x, y) = x^3 + y$ which ``equals'' $xy + y$ on $X$. 
+    \end{example}
+    Regular functions on $X$ form a $k$-algebra, taking $k[X]$ to be the coordinate ring of $X$, $k[x_1, \dots, x_n] \to k[X]$ has kernel $I(X)$. So coordinate ring of $X$ is $k[x_1, \dots, x_n]/I(X)$. 
+    \begin{example}
+        $k[\A^n] = k[x_1, \dots, x_n]$. Then functions on the circle $\C[x, y]/(x^2 + y^2 - 1)$ which ``equals'' $\C[\sin t, \cos t] = \C[e^{it}, e^{-it}]$, so should be true that $\C[u, v]/(uv - 1)$. This is indeed true, and nothing more than the statement that every circle and hyperbola are isomorphic over the complex numbers. 
+    \end{example}
+    Facts: 
+    \begin{enumerate}
+        \item $k[x] = k[x_1, \dots, x_n]/I(X)$ such that $I = \sqrt{I}$. So in the quotient there are no nilpotents $a^m = 0$ or $a \neq 0$. Thus this algebra is reduced. 
+        \item $X$ is irreducible if and only if $I(X)$ is prime if and only if $k[x]$ is a domain. 
+        \item $X$ is a point if and only if $I(X)$ is maximal iff $k[X] = k$. 
+    \end{enumerate}
+    
 
 \end{document} 
