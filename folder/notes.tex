@@ -15,6 +15,9 @@
 \newcommand{\Z}{\mathbb{Z}}
 \renewcommand{\S}{\mathbb{S}}
 \newcommand{\Id}{\mathrm{Id}}
+\newcommand{\Mor}{\mathrm{Mor}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Hom}{\mathrm{Hom}}
 
 \newtheorem{fact}{Fact}
 \newtheorem{definition}{Definition}
@@ -413,7 +416,7 @@
             \item By the above $F[x_1, \dots, x_n]/I$ is Noetherian. In particular, we will study $\C[x, y]/(x^2 + y^2 + 1)$, vanishing functions on a circle. 
         \end{enumerate}
     \end{example}
-    (Akhil Spectral theory notes are very good)\par 
+    (Vakil Spectral theory notes are very good)\par 
     \begin{theorem}
         [Hilbert Basis Theorem] $R$ Noetherian if and only if $R[x]$ is Noetherian. 
     \end{theorem}
@@ -575,6 +578,43 @@
         \item $X$ is irreducible if and only if $I(X)$ is prime if and only if $k[x]$ is a domain. 
         \item $X$ is a point if and only if $I(X)$ is maximal iff $k[X] = k$. 
     \end{enumerate}
-    
+
+    \subsection{Lecture 11}
+    Today we wil talk about the category of affine algebraic varieties and its equivalence to the category of reduced finitely generated $k$-algebras. \par 
+    Reminder: a category is a set of objects, and morphisms between them. So for any two objects $X, Y$ there is a set of morphisms $\Mor(X, Y)$. Note that in $\Mor(X, X)$ there is a designated element called the identity $\id_X$. Also, there exists a composition operation $\circ: \Mor(X, Y) \times \Mor(Y, Z) \to \Mor(X, Z)$ that is associative and respects identity, so $(f \circ g) \circ h = f \circ(g \circ h)$ and $f \circ \id_X = \id_Y \circ f = f$. \par
+    As an example, for any group you can take the elements of the group $g$ as morphisms from the same object, and define composition $g \circ h = gh$ using group multiplication. The identity element $e$ acts as the identity morphism on the object. \par
+    Now, take $k$ to be an algebraically closed field. Take a category in which affine algebraic varieties $X = V(I) \subset \A^n$ with $I$ an ideal of $k[x_1,\dots, x_n]$ for some $n$ are the objects. Take the morphisms $f: X \to Y$ of these affine algebraic varieties, called either \textbf{regular maps} or \textbf{polynomial maps}, to be such that there exist $P_1, \dots P_m \subset k[x_1, \dots, x_n]$ so that for any $(b_1, \dots, b_n) \in X$, $f(X) = (P_1(b_1, \dots, b_n), \dots, P_m(b_1, \dots, b_n))$. One example of a regular map is something like $x \mapsto (x^3 + 1, x^2)$ between $X = \A^1 \to Y = \A^2$. ANother one is $(x_1, x_2) \mapsto x_1$. Taking $X$ to be the parabola $y = x^2$, the morphism $(x, y) \mapsto x$ maps $X$ to $Y$ being the $x$-axis. \par 
+    In this category, the identity morphism is given by $(x_1, \dots, x_n) \mapsto (x_1, \dots, x_n)$. A composition of regular maps is again a regular map. \par 
+    In any category there's a notion of an isomorphism, namely $f \in \Mor(X, Y)$ is an isomorphism if there exists a $g \in \Mor(Y, X)$ such that $f \circ g = \id_Y$ and $g \circ f = \id_X$. For example, the morphism $(x, y) \mapsto x$ from a parabola to the $x$-axis is an isomorphism, since $g$ from the axis to the parabola given by $x \mapsto (x, x^2)$ is its `inverse'. \par 
+    Here is a conjecture, which ``will certainly give you a professor position here if you solve it''. Take isomorphisms $\A^n \to \A^n$ in the category of affine algebraic sets. For instance, take $(x, y) \mapsto (x^2 + y, x)$, its inverse is $(x, y) \mapsto (y, x-y^2)$. Notice that the determinant of the Jacobian of an isomoprhism is a non-zero constant, the converse, that it suffices for a regular map to have a non-zero constant Jacobian in order for it to be invertible, is called the Jacobian conjecture. \par 
+    Let $X\subset \A^n$ be an affine algebraic variety, then $k[X] = k[x_1, \dots, x_n]/I(X) = \Mor(X, \A^n)$. Note that $k[X]$ is a finitely generated algebra over $k$, and $k[X]$ is \textbf{reduced}, i.e. has no nilpotent elements, which happens iff $I(X) = \sqrt{I(X)}$. \par 
+    Consider now the category of reduced finitely generated algebras over $k$. Morphisms $\Mor(B, A)$ in this category being homomorphisms of $k$-algebras $B \to A$. Some examples:
+    \begin{enumerate}
+        \item $\C[x] \to \C$ via $x \mapsto 3$.
+        \item $\C[y] \to \C[x, y]/(y^2 - x)$ via inclusion. 
+        \item $\C[x, y]/(x^2+y^2-1) \xrightarrow{\widetilde{}} \C[t_1, t_2]/(t_1t_2 - 1)$ so this is an isomorphism in the category.
+    \end{enumerate} 
+    We want to say that these categories are in some way the same. For this, define a map $F: \mathcal{C} \to \mathcal{D}$ between categories, called a \textbf{functor}. For any object $X \in \mathcal{C}$, a functor $F$ gives an object $F(X) \in \mathcal{D}$. For any morphism $f: X \to Y$ we have a map $F(f): F(X) \to F(Y)$. \par 
+    Let a (contravariant) functor between the category of affine algebraic varities and finitely generated algebras over $k$ be given by $k[X] = k[x_1, \dots, x_n]/I(X)$. This functor takes a map $f: X \to Y$ given by $(x_1, \dots, x_n) \mapsto (F_1(x_1, \dots, x_n), \dots, F_m(x_1, \dots, x_n))$ to the map $k[Y] = k[y_1, \dots, y_m]/I(X) \to k[X] = k[x_1, \dots, x_n]/I(X)$ by $y_i \to F_i(x_1, \dots, x_n)$. \par 
+    Some examples: 
+    \begin{enumerate}
+        \item The example of isomorphism between parabola and the $x$-axis corresponds to the map $\C[x] \to \C[x, y]/(y-x^2)$. 
+        \item A map $\A^1 \to \A^2$ given by $x \mapsto (x, 3x-1)$ corresponds to $\C[x, y] \to \C[x]$ by $x \mapsto x$, $y \mapsto 3x-1$. 
+    \end{enumerate}
+    The most straightforward way to think of how to say that these two categories are equivalent is to come up with another functor $G$ such that $F \circ G = \id_\mathcal{C}$, $G \circ F = \id_\mathcal{D}$. However this almost never makes sense, the map in the other direction will involve choices and not be well-defined. The correct notion is the equivalence of categories. So, a functor $F$ gives an equivalence if there exists a natural transformation $F \circ G \to \id$, and in the other direction also. (We won't talk about what that means, watch Bouchard's category theory videos). Instead we will prove some facts about $F$ that should make it clear that it defines an equivalence. \par 
+    \begin{proposition}
+        $F$ is \textbf{essentially surjective}: For every finitely generated algebra $A$ there exists an affine algebraic variety $X$ s.t. $k[X] \cong A$, finitely generated implies $A \cong k[x_1, \dots, x_n]/I = k[X]$, $A$ is reduced implies for $V(I) = X\subset \A^n$, $I = \sqrt{I}$. (TODO)
+    \end{proposition}
+    \begin{proposition}
+        $F$ is \textbf{fully faithful}: the map $\Mor(X, Y) \to \Hom(k[Y], k[X])$ given by $f \mapsto f^*$ given by $F$ is a bijection. 
+    \end{proposition}
+    Indeed, for any map $k[y_1, \dots, y_m]/I(Y) \to k[x_1, \dots, x_n]/I(X)$ by $y_i \mapsto P_i$, then take $X \to Y$ via $(x_1, \dots, x_n) \mapsto (P_1(x_1, \dots, x_n), \dots, P_n(x_1, \dots, x_n))$. \par 
+    These two facts give us what we want by the following theorem:
+    \begin{theorem}
+        If $\mathcal{C}$ and $\mathcal{D}$ are categories, $F: \mathcal{C} \to \mathcal{D}$ Then $F$ is an equivalence of categories if and only if $F$ is fully faithful and essentially surjective. 
+    \end{theorem}
+
+
+
 
 \end{document} 
