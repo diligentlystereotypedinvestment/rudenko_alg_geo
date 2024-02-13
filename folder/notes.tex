@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage[margin = 1 in]{geometry}
-\usepackage{amsmath, amsfonts, graphicx, amsthm, quiver}
+\usepackage{amsmath, amsfonts, amssymb, graphicx, amsthm, quiver, hyperref}
 
 \newcommand{\F}{\mathbf{F}}
 \newcommand{\C}{\mathbb{C}}
@@ -19,12 +19,13 @@
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\Hom}{\mathrm{Hom}}
 
-\newtheorem{fact}{Fact}
-\newtheorem{definition}{Definition}
-\newtheorem{example}[]{Example}
-\newtheorem{theorem}{Theorem}
-\newtheorem{proposition}{Proposition}
-\newtheorem{lemma}{Lemma}
+\newtheorem{fact}{Fact}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem*{example}{Example}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
 
 \title{Algebraic Geometry Notes}
 \author{Raman Aliakseyeu}
@@ -138,10 +139,10 @@
     By definition the dimension of $\P(V)$ is $\dim V - 1$. If $V = F^{n+1}$, $\P(V) = \P_F^n$. More explicitly, $\P(V) = (V - \{0\})/(v \sim \lambda v, \lambda \in F)$. 
     We express points in $\P(V)$ by \textbf{homogeneous coordinates} so $[X_0: X_1 : \dots : X_n]$, with the aforemetioned equivalence relation (so e.g. $[0, 1, 0] = [0, 2, 0]$) \par 
     ``Gold to silver to whiskey, the ratio should be 1 to 1 to 100. You're making a cocktail. Don't do that by the way... Point of projective geometry is to make cocktails.''\par 
-    If $A = [X_0: \dots :X_n] \in \P^n$. If $X_n \neq 0$ then $A = [X_0/X_n: \dots : X_{n-1}/X_n, 1]$, points of this form this are in bijection with $\A^n$. Indeed, $\P^n = \A^n \sqcup \A^{n-1} \sqcup \dots \sqcup \A^0$. The points with $X_n = 0$ are in bijection with points in $\P^n$ (divide all entrees by the first non-zero entry from the right). For example, $\P_\R^1 = \R \cup \infty$, where $\R$ is in bijection with points $[X_0/X_1:1]$ and $\infty$ represents $[1:0]$.  \par 
+    If $A = [X_0: \dots :X_n] \in \P^n$. If $X_n \neq 0$ then $A = [X_0/X_n: \dots : X_{n-1}/X_n, 1]$, points of this form this are in bijection with $\A^n$. The points with $X_n = 0$ are in bijection with points in $\A^{n-1}$ (divide all entrees by the first non-zero entry from the right). Indeed, $\P^n = \A^n \sqcup \A^{n-1} \sqcup \dots \sqcup \A^0$. For example, $\P_\R^1 = \R \cup \infty$, where $\R$ is in bijection with points $[X_0/X_1:1]$ and $\infty$ represents $[1:0]$.  \par 
     \textbf{Barycentric coordinates} are basically the same thing as homogeneous coordinates but in a different language. Imagine putting masses $m_1, m_2, m_3$ at the vertices of a triangle, then look at their center of mass. If $m_1 = m_2 = m_3$ then this point is the centroid. More precisely, if $O$ is any point, we have that the point $M$ with homogeneous coordinates $(m_1, m_2, m_3)$, the center of mass for some $m_1, m_2, m_3$ (sum non-zero), is such that
     $$\vec{OM} = \frac{m_1\vec{OA_1} + m_2\vec{OA_2} + m_3\vec{OA_3}}{m_1 + m_2 + m_3}$$
-    As such, $O$ has homogeneous coordinates $(m_1:m_2:m_3)$ in the projective plane.  \par 
+    As such, $M$ has homogeneous coordinates $(m_1:m_2:m_3)$ in the projective plane.  \par 
     A homogeneous polynomial is one where each term has the same degree. Then it makes sense to talk about $P([x_0, \dots, x_d]) = 0$ for a homogeneous polynomial $P$, since such polynomials respect the equivalence relation of homogeneous coordinates. 
     \begin{definition}
         \textbf{Projective variety} is a subset of $\P_F^n$ which is the set of solutions of a system:
@@ -153,19 +154,21 @@
         where each $P_i$ is homogeneous. 
     \end{definition}
     \begin{example}
-        Say $P(x, y, z) y - x^2$, which we can think of as points $[x:y:1]$ that satisfy the parabola. We can relabel $[x:y:1]$ into $[X:Y:Z]$ with $x = X/Z, y = Y/Z$, so the set of points satisfying $P_1([X:Y:Z])$ is the set such that $X^2 = YZ$. So for instance $[0:1:0]$ is also a solution. We can think of this as the parabola becoming an ellipse because it closes at infinity. 
+        Say $P(x, y, z) = y - x^2$, which we can think of as points $[x:y:1]$ that satisfy the parabola. We can relabel $[x:y:1]$ into $[X:Y:Z]$ with $x = X/Z, y = Y/Z$, so the set of points satisfying $P_1([X:Y:Z])$ is the set such that $X^2 = YZ$. So for instance $[0:1:0]$ is also a solution. We can think of this as the parabola becoming an ellipse because it closes at infinity. 
     \end{example}
 
     \subsection{Lecture 3}
-    \textbf{Observation}: If we have an injective linear map $f: V_1 \to V_2$, and $L$ is a line in $V_1$, then $f(L)$ is also a line. So, $f$ induces a map $\overline{f}: \P(V_1) \to \P(V_2)$.
+    \textbf{Observation}: If we have an injective linear map $f: V_1 \to V_2$ between vector spaces $V_1$ and $V_2$, and $L$ is a line in $V_1$, then $f(L)$ is also a line. So, $f$ induces a map $\overline{f}: \P(V_1) \to \P(V_2)$.
     \begin{definition}
         If $V_1 = V_2$ in the above, then the set of maps $\P(V) \to \P(V)$ induced by linear maps $V \to V$ form the \textbf{projective linear group} $\PGL(V)$. If $V = \F^n$, we denote $\PGL(V) = \PGL_n(\F)$. 
     \end{definition}
-    $\PGL_n(F)$ has a simple description: Let $\Phi: \GL_n(\F) \to \PGL_n(\F)$ be defined by $f \to \overline{f}$. Then $\ker \Phi$ is the set of all diagonal matrices (since those are identity on one-dim spaces), which is isomorphic to $F^\times$. So, $\PGL_n(\F) = \GL_n/F^\times$ by first isomorphism theorem. \par
+    $\PGL_n(\F)$ has a simple description: Let $\Phi: \GL_n(\F) \to \PGL_n(\F)$ be defined by $f \to \overline{f}$. Then $\ker \Phi$ consists of all multiples of the identity, which is isomorphic to $\F^\times$. So, $\PGL_n(\F) = \GL_n/\F^\times$ by first isomorphism theorem. \par
     Now consider $\P_\F^1$, and $\begin{bmatrix}
         a & b \\ c & d
-    \end{bmatrix} \in \GL_n(\F)$. Then $\overline{f}([x: y]) = [ax+by: cx+dy]$. Note that we can interpret $\P_\F^1 = \A_\F^1 \cup \infty$, where $A_\F^1$ can be thought of as the set of all $[x:1]$, and $\infty$ can be thought of as $[0:1]$. So on $\A_\F^1$, $[ax+by: cx+dy] = [\frac{ax+b}{cx+d}:1]$. So on the affine line, $\overline{f}$ sends $x$ to $\frac{ax+b}{cx+d}$. \par 
-    If $f(x) = 1/x$, then $[x:y] = [x/y:1]$ gets sent to $[y/x:1] = [y:x]$ by $\overline{f}$. Hence, $[0:1] \mapsto [1:0]$, or in other words $0 \mapsto \infty$ in $\P_\F^1$. This corresponds to the analytic intuition: as $x$ gets closer to $0$, $1/x$ gets closer to infinity. \par 
+    \end{bmatrix} \in \GL_2(\F)$. Then $f([x: y]) = [ax+by: cx+dy]$. The fact the matrix is in $\GL$ gives $\det = ad - bc \neq 0$. Note that we can interpret $\P_\F^1 = \A_\F^1 \cup \infty$, where $\A_\F^1$ can be thought of as the set of all $[x:1]$, and $\infty$ can be thought of as $[1:0]$. So on $\A_\F^1$, $f([x: 1]) = [ax+by: cx+dy] = [\frac{ax+b}{cx+d}:1]$. This implies that on the affine line $\overline{f}$ sends $x$ to $\frac{ax+b}{cx+d}$. 
+    \begin{example}
+        If $f(x) = 1/x$, then $[x:y] = [x/y:1]$ gets sent to $[y/x:1] = [y:x]$ by $\overline{f}$. Hence, $[0:1] \mapsto [1:0]$, or in other words $0 \mapsto \infty$ in $\P_\F^1$. This corresponds to our analytic intuition: as $x$ gets closer to $0$, $1/x$ gets closer to infinity. 
+    \end{example}
     Now look at $\P_\F^2$, and consider the linear transformation 
     $$A = \begin{bmatrix}
         a_{11} & a_{12} & a_{13} \\
@@ -177,10 +180,11 @@
     ``If you have a dictator you don't like and you want to get rid of them, you can just take a projective transformation of them and send them to infinity. That's what they used to do with dictators.'' \par
     By this he means, by choosing the last row of $A$ appropriately, we can get $\overline{A}$ to send any given line in $\A_\F^2$ to infinity. 
     \begin{theorem}
-        Consider points $A_1, \dots A_{n+2}$, $B_1, \dots, B_{n+2}$ in $\P^n$ such that $\{A_i\}$ and $\{B_i\}$ are in \textit{general position} (on $\P^n$ this means for any $i$, $A_1, \dots, \hat{A_i}, \dots, A_{n+2}$ span $F^{n+1}$ when considered as vectors in $F^{n+1}$). Then there exists $\overline{f} \in \PGL_n(\F)$ such that $\overline{f}(A_j) = B_j$ for $1 \leq j \leq n+2$. 
+        Consider points $A_1, \dots A_{n+2}$, $B_1, \dots, B_{n+2}$ in $\P^n$ such that $\{A_i\}$ and $\{B_i\}$ are in \textit{general position} (on $\P^n$ this means for any $i$, $A_1, \dots, \hat{A_i}, \dots, A_{n+2}$ span $\F^{n+1}$ when considered as vectors in $\F^{n+1}$). Then there exists a unique $\overline{f} \in \PGL_n(\F)$ such that $\overline{f}(A_j) = B_j$ for $1 \leq j \leq n+2$. 
     \end{theorem}
     \begin{proof}
-        Let $A_i = [v_i]$, $B_i = [w_i]$, where $[v_i]$ is the equivalence class of some vector $v_i \in \F^{n+1}$. Then by assumption $v_1, \dots, v_{n+1}$ and $w_1, \dots, w_{n+1}$ are bases of $F^{n+1}$, so there exists a unique linear transformation $f_1$ such that $f_1(v_i) = w_i$. Then, $f_1(v_{n+2}) = \tilde{v}_{n+2}$. Since $v_{n+2} = \lambda_1v_1 + \dots + \lambda_{n+1}v_{n+1}$, this maps to $\tilde{v}_{n+2} = \lambda_1w_1 + \dots \lambda_{n+1}w_{n+1}$. Also $w_{n+2} = \mu_1w_1 + \dots + \mu_{n+1}w_{n+1}$. Note that this means $\lambda_i, \mu_i \neq 0$ for any $i$. Then, let $f_2$ be a linear map sending $w_i$ to $\frac{\mu_i}{\lambda_i}w_i$ so $f_2 \circ f_1(v_1) = \frac{\mu_1}{\lambda_i}w_i$ and $f_2 \circ f_1(v_{n+2}) = w_{n+2}$. As such, $\overline{f_2f_1}$ sends $A_i$ to $B_i$. Uniqueness is left as an exercise. 
+        Let $A_i = [v_i]$, $B_i = [w_i]$, where $[v_i]$ is the equivalence class of some vector $v_i \in \F^{n+1}$. Then $v_1, \dots, v_{n+1}$ and $w_1, \dots, w_{n+1}$ are bases of $\F^{n+1}$, so there exists a unique invertible linear transformation $f_1$ such that $f_1(v_i) = w_i$. Since $v_{n+2} = \lambda_1v_1 + \dots + \lambda_{n+1}v_{n+1}$, we know $f(v_{n+2}) = \lambda_1w_1 + \dots \lambda_{n+1}w_{n+1}$. Consider now $w_{n+2} = \mu_1w_1 + \dots + \mu_{n+1}w_{n+1}$. Note that this means $\lambda_i \neq 0$ for any $i$ since otherwise there exists a subset $v_1, \dots, \hat{v_i}, \dots, v_{n+2}$ that does not span $\F^{n+1}$. Similarly, $\mu_i \neq 0$. Then, let $f_2$ be a linear map sending $w_i$ to $\frac{\mu_i}{\lambda_i}w_i$ so $f_2 \circ f_1(v_1) = \frac{\mu_1}{\lambda_i}w_i$ and $f_2 \circ f_1(v_{n+2}) = w_{n+2}$. Note that this map is also invertible. As such, there exists a projective transformation $\overline{f_2f_1}$ which sends $A_i$ to $B_i$. \par 
+        Uniqueness (ASK ABOUT)  
     \end{proof}
     \begin{theorem}
         [Pappus' Theorem] Consider the diagram 
@@ -190,11 +194,16 @@
         The points $X, Y, Z$ are always colinear. [Note: the diagram he drew in class had points labelled differently, I changed them because this diagram is from the internet. ]
     \end{theorem}
     \begin{proof}
-        Take the line through $Y$ and $Z$, send it via a projective transformation to the line at infinity. Then, to show $X$ is on the same line as $Y, Z$ it suffices to show that after the transformation $\overline{AB'}$ is parallel to $\overline{A'B}$ (marked red in the diagram below:)
+        Take the line through $Y$ and $Z$, send it via a projective transformation to the line at infinity. Then, to show $X$ is on the same line as $Y, Z$ it suffices to show that after the transformation $\overline{AB'}$ is parallel to $\overline{A'B}$.\par 
+        Suppose after the transformation the lines intersect at point $O$. 
         \begin{center}
-            \includegraphics[width = 0.8\linewidth]{pappus_step_2.png}
+            \includegraphics[width = 0.8\linewidth]{pappus_case_2.png}
         \end{center} 
-        This is true by angle chasing using the parallel line postulate.  
+        Because $AC'$ and $A'C$ are parallel, as well as $BC'$ and $B'C$, we have that $\triangle AOC'$ and $\triangle COA'$ are similar, same with $\triangle BOC'$ and $\triangle COB'$. From this we obtain the relations
+        $$\frac{|OA|}{|OC'|} = \frac{|OC|}{|OA'|} \quad \frac{|OB|}{|OC'|} = \frac{|OC|}{|OB'|}$$
+        Then, 
+        $$\frac{|OA|}{|OB|} = \frac{|OA|}{|OC'|}\frac{|OC'|}{|OB|} = \frac{|OC|}{|OA'|}\frac{|OB'|}{|OC|} = \frac{|OB'|}{|OA'|}$$
+        Because they share an angle and because a pair of their corresponding sides has the same ratio, triangles $\triangle AOB'$ and $\triangle BOA'$ must be similar. By the parallel line postulate we are done.
     \end{proof}
 
     For $\P^1$, recall that $\PGL_2(\F) = \{\frac{ax+b}{cx+d} \mid ad - bc \neq 0\}$. By the theorem above, elements of $\PGL_2(\F)$ send any three distinct points to any three distinct points. This is not true however for four points, so it makes sense that there would be some sort of invariant associated with four points. 
@@ -209,7 +218,24 @@
         If $f \in \PGL_2(\F)$ then $[f(x_1), f(x_2), f(x_3), f(x_4)] = [x_1, x_2, x_3, x_4]$. So, cross ratio is an invariant of $\PGL_2(\F)$.
     \end{theorem}
     \begin{proof}
-        $\PGL_2(\F)$ as a group is generated by the following transformations: $x \mapsto x + b$, $x \mapsto ax$, $x \mapsto 1/x$. It is easy to see that the first two leave cross ratio unchanged. The third is an algebra bash. 
+        Note that $\PGL_2(\F)$ as a group is generated by the elementary matrices (considered as being projective transformations) of the form 
+        $$\begin{pmatrix}
+            a & 0 \\
+            0 & d 
+        \end{pmatrix} \quad 
+        \begin{pmatrix}
+            1 & b \\
+            0 & 1
+        \end{pmatrix} \quad 
+        \begin{pmatrix}
+            0 & 1 \\
+            1 & 0
+        \end{pmatrix}$$
+        The first matrix acts on $x \in \P_\F^1$ by multiplying it by $a/d$. This of course does not change the cross ratio. The second matrix maps $x \mapsto x + b$, which also doesn't change the cross ratio, since $b$'s cancel in each pair of parentheses in the expression for the cross ratio. The last matrix maps $x \mapsto 1/x$. In this case, if $x_i < \infty$, 
+        $$\frac{\left(\frac{1}{x_1} - \frac{1}{x_2}\right)\left(\frac{1}{x_3} - \frac{1}{x_4}\right)}{\left(\frac{1}{x_1} - \frac{1}{x_4}\right)\left(\frac{1}{x_3} - \frac{1}{x_2}\right)} = \frac{(x_2 - x_1)(x_4 - x_3)}{(x_4-x_1)(x_2-x_3)}$$
+        Which is the same as the original cross-ratio. If say $x_4 = \infty$ we have 
+        $$\frac{\left(\frac{1}{x_1} - \frac{1}{x_2}\right)\left(\frac{1}{x_3} - \frac{1}{x_4}\right)}{\left(\frac{1}{x_1} - \frac{1}{x_4}\right)\left(\frac{1}{x_3} - \frac{1}{x_2}\right)} = \frac{\left(\frac{1}{x_1} - \frac{1}{x_2}\right)\frac{1}{x_3}}{\left(\frac{1}{x_1}\right)\left(\frac{1}{x_3} - \frac{1}{x_2}\right)} = \frac{x_2 - x_1}{x_2 - x_3}$$
+        which is again the same as the original cross ratio. Since all the generators of $\PGL_2(\F)$ preserve the cross ratio, so must all its elements. 
     \end{proof}
     Note that $[x_1, x_2, x_3, x_4] = [x_{\sigma(1)}, x_{\sigma(2)}, x_{\sigma(3)}, x_{\sigma(4)}]$ for $\sigma \in K$, the Klein $4$-group in $S_4$, so in fact $\sigma \in S_4$ can only change $[x_1, x_2, x_3, x_4]$ into $\lambda, 1-\lambda, 1/\lambda, 1-1/\lambda, \lambda/(\lambda-1), 1/(1-\lambda)$. Proving this will be an exercise. \par 
     \begin{proposition}
@@ -223,7 +249,7 @@
     $$\frac{|C'A'|}{|C'B'|}: \frac{|D'A'|}{|D'B'|} = \frac{|CA|}{|CB|}: \frac{|DA|}{|DB|}$$
     [A proof of this equality with elementary trigonometry is in Prasolov]
     \begin{proof}
-        Let $L_1, L_2$ be planes and $O$ be a line in $V = \F^3$ not contained in either plane. Take the plane $V/O$, then $\P(V/O) = \P^1$. Then $L_i \to V \to V/O$, the composition of inclusion and quotient, gives us a map $\P^1 \to \P^1$. Indeed, we have the commutative diagram
+        Let $L_1, L_2$ be planes and $O$ be a line in $V = \F^3$ not contained in either plane. Take the plane $V/O$, then $\P(V/O) = \P^1$. Then $L_i \to V \to V/O$, the composition of inclusion and quotient, gives us a map $\P^1 \to \P^1$. As a map between planes, this takes a point on $p \in L_i$ to its perpendicular projection onto $V/O \neq L_i$. This map is a bijective homomorphism, so its invertible. Indeed, we have the commutative diagram
         \[\begin{tikzcd}
             & V && V \\
             {L_1=\mathbb{P}^1} && {V/O=\mathbb{P}^1} && {L_2 = \mathbb{P}^1}
@@ -234,19 +260,17 @@
             \arrow[from=2-1, to=2-3]
             \arrow[from=2-5, to=2-3]
         \end{tikzcd}\]
-        With the bottom two arrows being isomorphisms. Composing the left arrow with the inverse of the right arrow gives us a map in $\GL_2(F)$ between $L_1$ and $L_2$, which induces the projection map in $\PGL_2(F)$.  
+        With the bottom two arrows being isomorphisms. Composing the left arrow with the inverse of the right arrow gives us a map in $\GL_2(\F)$ between $L_1$ and $L_2$, which induces the projection map in $\PGL_2(\F)$.  
     \end{proof}
+    In particular, this implies that a projective transformation on $\P^2$ preserves cross ratio. 
 
-    \subsection{Lecture 4}
-    (OH 5PM) \par 
-    [TODO: there are some errors in this lecture] \par
-    Recall: We consider a field $\F$, mostly $\R, \C$ or $\F_p$. As we defined before, $\P_\F^n = (\F^{n+1} \setminus 0)/\F^\times$, where the identification is $(x_0, \dots, x_n) \sim (\lambda x_0, \dots, \lambda x_n)$. An equivalence class like this is denotes via homogeneous coordinates $[x_0: \dots : x_n]$. We can identify the affine plane $\A_\F^n$ by considering the set of points with $x_n \neq 0$ (i.e. by excluding the lines at infinity). \par 
-    Note we may write $R = \F[x_0, \dots, x_n] = R_1 \oplus R_2 \oplus \dots$ where $R_d$ is a vector space of homogeneous polynomials with degree of terms being $d$ (so $x_0^{k_0}x_1^{k_1} \dots x_n^{k_n}$ with $\sum k_i = d$). $R_0$ is the base field. $R_1$ is the dual space $V^*$ of $\F^n$ (since all homog. polys of deg 1 are precisely all linear maps). $R_2 = \mathbb{S}^2 V^*$, and in general $R_d = \mathbb{S}^d V^*$. 
+    \subsection{Lecture 4} 
+    Note we may write $R = \F[x_0, \dots, x_n] = R_1 \oplus R_2 \oplus \dots$ where $R_d$ is a vector space of homogeneous polynomials with degree of terms being $d$ (so $x_0^{k_0}x_1^{k_1} \dots x_n^{k_n}$ with $\sum k_i = d$). $R_0$ is the base field. $R_1$ is the dual space $V^*$ of $V = \F^n$ ($\{x_i\}$ is precisely the basis of $V^*$ dual to the standard basis $\{e_i\}$ of $V$). $R_2 = \mathbb{S}^2 V^*$, and in general $R_d = \mathbb{S}^d V^*$. 
     \begin{definition}
         Let $F \in R_d$ be a homog. polynomial with $d \neq 0$. Then the set of solutions of an equation $F(x_0, \dots, x_n) = 0$ is called a \textbf{hypersurface} of degree $d$ in $\P^n$.  
     \end{definition}
     \begin{example}
-        In $\P^3$, $x_0^3 - x_1^3 + x_2x_3^2 + x_3^3 = 0$. The intersection of this with $\A^3$ (obtained by dividing all terms by $x_3$) we get $(x_0/x_3)^3 - (x_1/x_3)^3 + x_2/x_3 + 1 = 0$. The rest of this hypersurface is in $\P^3 \setminus \A^3 = H$, it is defined by $x_0^3 - x_1^3 = 0$. Since $H \cong \P^2$, we can do the same procedure to reduce this hypersurface to something we can draw in $\A^2$, getting $y_0^3 - y_1^3 = 0$, which are three lines intersecting at the origin (if $\F = \C$). Going the other way from $y_0^3 + y_1^3 + y_2 + 1 = 0$ by introducing another variable and going into $\P^3$ is called \textit{homogenization}. 
+        In $\P^3$, $x_0^3 - x_1^3 + x_2x_3^2 + x_3^3 = 0$. The intersection of this with $\A^3$ (obtained by dividing all terms by $x_3$) is $(x_0/x_3)^3 - (x_1/x_3)^3 + x_2/x_3 + 1 = 0$. The rest of this hypersurface is in $\P^3 \setminus \A^3 = H$, in this $H$, the hypersurface is defined by $x_0^3 - x_1^3 = 0$. Since $H \cong \P^2$, we can do the same procedure to reduce this hypersurface to something we can draw in $\A^2$, getting $y_0^3 - y_1^3 = 0$, which are three lines intersecting at the origin (if $\F = \C$). Going the other way from $y_0^3 + y_1^3 + y_2 + 1 = 0$ by introducing another variable and going into $\P^3$ is called \textit{homogenization}. 
     \end{example}
     \begin{definition}
         A \textbf{projective variety} is a \textit{finite} intersection of hypersurfaces. 
@@ -258,39 +282,36 @@
     \begin{example}
         \begin{itemize}
             \item $x_0x_1 = 0$ in $\P^2$ is a union of two lines. Not irreducible polynomial, so the hypersurface is not irreducible also. In general, any union of two lines is not irreducible. 
-            \item $x_0^2 + x_1^2 = x_2^2$ is irreducible, so its hypersurface, a circle in $\A^2$. 
+            \item $x_0^2 + x_1^2 = x_2^2$ is irreducible, so is its hypersurface, a circle in $\A^2$. 
         \end{itemize}
     \end{example}
-    Assume $\F = \C$. Consider  the action of $\PGL_{n+1}$ on degree $d$ hypersurfaces in $\P^n$. Take $d = 1$, then this action is transitive, as we saw last time. Thus up to projective transformations all hyperplanes are the same. If $d = 2$, $F$ looks like 
+    Assume $\F = \C$. Consider  the action of $\PGL_{n+1}$ on degree $d$ hypersurfaces in $\P^n$. Take $d = 1$, then this action is transitive, as we saw last time. Thus up to projective transformations all hyperplanes are the same. If $d = 2$, polynomial $F$ looks like 
     $$\sum a_{ij} x_i x_j = (x_0, \dots, x_n) A \begin{pmatrix}
         x_0 \\
         \vdots \\
         x_n
     \end{pmatrix} = x^\top A x$$
-    Subject to a projective transformation, $x = Uy$ for some $y \in \P^n$. Thus, $x^\top A x \mapsto y^\top U^\top A Uy = 0$.  
+    With a symmetric matrix $A$. Subject to a projective transformation, $x = Uy$ for some $y \in \P^2$, $U \in \PGL_{n+1}$. Thus, $x^\top A x = 0 \mapsto (Uy)^\top A (Uy) = y^\top (U^\top A U) y^\top 0$. Note that because $A$ is symmetric, it is diagonalizable, hence for some $U$, $U^\top A U$ is a diagonal matrix of eigenvalues of $A$. In this case, we have shown:
     \begin{theorem}
-        Any quadric is a projectively equivalent to a quadric $\lambda_0 x_0^2 + \lambda_1 x_1^2 + \dots + \lambda_n x_n^2 = 0$
+        Any quadric is a projectively equivalent to a quadric $\lambda_0x_0^2 + \lambda_1x_1^2 + \dots + \lambda_nx_n^2 = 0$ (with some $\lambda_i$ possibly zero). 
     \end{theorem}
-    [TODO: This is equivalent to (some) matrix diagonalization result, didn't catch which one that was.]
-    Exercise: prove this my hand for $n = 2$. \par 
-    So, if $\F = \R$, for $n = 2$ the picture is complicated, for example $x_0^2 - x_1^2 - x_2^2 = 0$ is a double cone. But for $\F = \C$ things become simpler because everything can be reduced to the cases $x_0^2 + x_1^2 + \dots + x_i^2 = 0$. So in $\P_\C^2$ we have lines, intersections of two lines, and conics, for $i = 1, 2, 3$ respectively. Thus the action of $\PGL_3$ has three orbits, namely those classes. \par 
+    If $\F = \R$, for $n = 2$ the picture is complicated, for example $x_0^2 - x_1^2 - x_2^2 = 0$ is a double cone. But for $\F = \C$ things become simpler because everything can be reduced to the cases $x_0^2 + x_1^2 + \dots + x_i^2 = 0$ (from the theorem above by applying a shearing transformation). So in $\P_\C^2$ we have lines, intersections of two lines, and conics, for $i = 1, 2, 3$ respectively. Thus the action of $\PGL_3$ has three orbits, namely those classes. \par 
     Now we discuss projective duality. Suppose we are working in $\P^2$. A line here is defined by an equation $ax + by + cz = 0$ with not all $a, b, c = 0$, modulo rescaling. Thus lines in $\P^2$ also form a projective space. This has some striking applications. \par
     Conceptually, if we have $\P^n = \P(V)$ for an $n$-dim vector space $V$, hyperplanes in $\P^n$ are in bijection with the elements of $\P(R_1) = \P(V^*)$. \par 
-    The \textbf{duality principle} can be stated as follows. Consider any theorem about points and lines in $\P^2$, replacing lines by points and vice versa gives another valid theorem. 
+    The \textbf{duality principle} can be stated as follows. Consider any theorem about points and lines in $\P^2$, replacing `lines' by `points' and vice versa gives another valid theorem. 
     \begin{example}
-        Recall Pappus' theorem. The dual to this theorem can be drawn as follows: (TODO: wrong diagram)
+        Recall Pappus' theorem. We can state it as follows: Consider lines $l_1, l_2$ and points $A, B, C$ on $l_1$ and $A', B', C'$ on $l_2$. Let $X$ be the intersection of lines $AB'$ and $A'B$, $Y$ the intersection of $AC'$ and $A'C$, and $Z$ the intersection of $BC'$ and $B'C$. Then $X, Y, Z$ are colinear. \par 
+        The dual is: Given points $l_1, l_2$ and lines $A, B, C$ through $l_1$ and $A', B', C'$ through $l_2$, let $X$ be the line through points $AB'$ and $A'B$, intersections of lines $A \cap B'$ and $A' \cap B$ respectively. Define $Y, Z$ similarly. Then lines $X, Y, Z$ intersect in some point $O$. Diagram below: 
         \begin{center}
-            \includegraphics[width = 0.7\linewidth]{pappus dual.png}
+            \includegraphics[width = \linewidth]{pappus_dual.png}
         \end{center}
-        The statement is that lines $a$, $b$, and $c$ (passing through $C_i$) all pass through $O$. 
     \end{example} 
-    In a dualization of a theorem, for every line there is a point, for every point there is a line. If $n$ lines intersect at a point, in the dual theorem $n$ points will lie on one line. \par 
     In $\P^3$ a similar duality holds: points correspond to planes, lines correspond to lines, planes correspond to points. \par 
     Three important facts about $V^*$: 1. $\dim V = \dim V^*$ since $V$ and $V^*$ are (not canonically) isomorphic, 2. $V \cong (V^*)^*$ canonically via an isomorphism $v \mapsto (\phi: V \to F \mapsto \phi(v))$, 3. There is an inclusion reversing bijection between subspaces of $V$ and $V^*$, which is equivalent to $\dim W + \dim W^\top = \dim V$. 
 
     \subsection{Lecture 5}
-    Let's talk about conics a little bit more. If $\P_\F^n = \P(\F^{n+1})$, so $[x_0: x_1: \dots : x_n]$ are homogeneous coordinates on $\P_\F^n$, and $P(x_0, \dots, x_n)$ is a homogeneous polynomial of degree $d$, $\{[x_0, \dots, x_n] \mid P(x_0, \dots, x_{n+1}) = 0\} \subset \P^n$ is a hypersurface of degree $d$. For $d = 1$ this is the familiar hyperplane. If $d = 2$ this is a \textit{quadric}. \par 
-    Over $\C$ (polynomials with coeffs in $\C$), every quadric is either a union of two lines, a cross of two lines, or a conic (which are all the same on the projective plane). The conic is called the \textit{smooth} quadric. \par 
+    Let's talk about conics a little bit more. If $\P_\F^n = \P(\F^{n+1})$, $[x_0: x_1: \dots : x_n]$ are homogeneous coordinates on $\P_\F^n$, and $P(x_0, \dots, x_n)$ is a homogeneous polynomial of degree $d$, we have that $\{[x_0, \dots, x_n] \mid P(x_0, \dots, x_{n+1}) = 0\} \subset \P^n$ is a hypersurface of degree $d$. For $d = 1$ this is the familiar hyperplane. If $d = 2$ this is a \textit{quadric}. \par 
+    Over $\C$ (polynomials with coeffs in $\C$), every quadric is either a union of two lines, a cross of two lines, or a conic (which are all the same on the projective plane). A conic is called the \textit{smooth} quadric. \par 
     \begin{theorem}[Pascal]
         \hfill
         \begin{center}
@@ -303,15 +324,20 @@
     \begin{lemma}[Chasles]
         Let points $A_1, A_2, A_3, A_4$ and $X$, $Y$ lie on a conic. Then 
         $$[(XA_1), (XA_2), (XA_3), (XA_4)] =  [(YA_1), (YA_2), (YA_3), (YA_4)]$$
+        (Identification of a conic with $\P^1$ is explained below).
     \end{lemma}
-    Notice that there is a bijection between points of a conic and lines through some particular point $X$ on a conic $C$. Indeed, a line through $X$ is either tangent to the conic or intersects it at some other point. Associating the tangent line to $X$ and the other lines to their intersection points, we associate the points of $C$ with $\P^1$. Indeed, the result above follows by using the two bijections onto $\P_1$ given by $X$ and $Y$, and concluding that there is a projective transformation mapping the $X$ configuration to the $Y$ configuration. This however requires some details we haven't gone over, so below is an elementary proof:
+    Notice that there is a bijection between points of a conic and lines through some particular point $X$ on a conic $C$. Indeed, a line through $X$ is either tangent to the conic or intersects it at some other point. Associating the tangent line to $X$ with infinity and the other lines to their intersection points, we associate the points of $C$ with $\P^1$. Indeed, the result above follows by using the two bijections onto $\P_1$ given by $X$ and $Y$, and concluding that there is a projective transformation mapping the $X$ configuration to the $Y$ configuration. This however requires some details we haven't gone over, so below is an elementary proof:
     \begin{proof}
-        (TODO: diagram) First, assume the conic $C$ is a circle in $\R^2 \subset \P_\R^2$. If the points are ordered $A_1, \dots, A_4$ from left to right, let $U$ and $V$ be intersection points of a line $A_1A_4$ through $XA_2, XA_3$. Then
+        Without loss of generality assume the conic $C$ is a circle in $\R^2 \subset \P_\R^2$. If the points are ordered $A_1, \dots, A_4$ from left to right, let $U$ and $V$ be intersection points of a line $A_1A_4$ through $XA_2, XA_3$. (see diagram below)
+        \begin{center}
+            \includegraphics[width = 0.6\linewidth]{chasles.png}
+        \end{center}
+        Then
         $$[XA_1, \dots, XA_4] := [X_1, U, V, X_4] = \pm \frac{S_{A_1XY} S_{VXA_1}}{S_{A_1XA_2}S_{UXV}} = \frac{\sin \angle X_1XU \sin \angle VXA_1}{\sin \angle A_1XA_2 \sin \angle UXV}$$
-        where $S_{ABC}$ is the notation for the area of triangle $ABC$. But by [these angles from $X$ and $Y$ are called something I forget what], we know that they remain invariant if we replace $X$ with $Y$. We thus have shown that the cross ratio remains the same. 
+        where $S_{ABC}$ is the notation for the area of triangle $ABC$ (we get the second equality since the altitude to $X$ is the same). Since they are inscribed angles, we know that they remain invariant if we replace $X$ with $Y$. We thus have shown that the cross ratio remains the same. 
     \end{proof}
     \begin{proof}
-        [Proof: (Of Pascal's)] By the lemma above, 
+        [Proof: (Of Pascal's)] (TODO: relabel points either on diagram or here) By the lemma above, 
         $$[A_1B_1, A_1B_2, A_1B_3, A_1A_2] = [A_3B_1, A_3B_2, A_3B_3, A_3A_2]$$
         Now label the two intersection points above the line $XYZ$ in the diagram $S$ and $T$. Then by definition of cross ratio of four lines, 
         $$[B, Z, S, A_2] = [T, X, B_3, A_2]$$
@@ -319,7 +345,7 @@
         $$[(B_1Y), (ZY), (SY), (A_2Y)] = [T, X', B_3, A_2] = [T, X, B_3, A_2]$$
         This implies $X = X'$, which concludes the proof. 
     \end{proof}
-    Our goal now is to go towards Bezout's theorem. The statement of the theorem is as follows: In $\P_\C^2$ let $X$ and $Y$ be projective curves such that they do not have common irreducible components. Then the number of points in their intersection is less than or equal to the product of their degrees, and in fact (hard part) is \textit{equal} up to multiplicity. Of course, it's hard because it's hard to define exactly what `up to multiplicity' means. Take two concentric circles $x^2 + y^2 = 1$ and $x^2 + y^2 = 2$ in $\A^2$. These only have solutions once you homogenize them and pass over to the complex projective plane. Then, $x^2 + y^2 = z^2, x^2 + y^2 + 2z^2$ have solutions $[1:i:0], [1:-i:0]$. By Bezout's these points have to have intersection multiplicty $2$, so in fact they are \textit{tangent points}. \par 
+    Our goal now is to go towards Bezout's theorem. The statement of the theorem is as follows: In $\P_\C^2$ let $X$ and $Y$ be projective curves such that they do not have common irreducible components. Then the number of points in their intersection is less than or equal to the product of their degrees, and in fact (hard part) is \textit{equal} to the product up to multiplicity. The hard part about the equality is that It's hard to define exactly what `up to multiplicity' means. Take two concentric circles $x^2 + y^2 = 1$ and $x^2 + y^2 = 2$ in $\A^2$. These only have solutions once you homogenize them and pass over to the complex projective plane. Then, $x^2 + y^2 = z^2, x^2 + y^2 + 2z^2$ have solutions $[1:i:0], [1:-i:0]$. By Bezout's these points have to have intersection multiplicty $2$, so in fact they are \textit{tangent points}. \par 
     For now, we will only prove the easier upper bound on the number of intersection points. 
     \begin{theorem}[Sylvester]
         Let $A(x) = a_mx^m + a_{m-1}x^{m-1} + \dots a_0 = 0$ and $B(x)$ be polynomials of degree $m$ and $n$ respectively. They have a common factor of degree $\geq 1$ if and only if the following $(m+n) \times (m+n)$ matrix
@@ -331,7 +357,7 @@
             b_n & b_{n-1} & \dots & &  b_0 & \dots & 0 \\
             0 & b_n & \dots & & & \dots & 0 \\
             & & \vdots & & \\
-            0 & 0 & \dots b_n & & \dots & & b_0 \\
+            0 & 0 & \dots & b_n & & \dots & & b_0 \\
         \end{bmatrix}$$
         (where $a_i$ appear in the first $n$ rows, $b_j$ appear in the last $m$ rows) has determinant $0$. The determinant is called the \textbf{resultant} of $A$ and $B$. 
     \end{theorem}
@@ -360,36 +386,46 @@
     \begin{proof}
         Let $\deg P = m$, $\deg Q = n$. Assume the system $\{P = 0, Q = 0\}$ has $nm + 1$ solutions of the form $(X_i, Y_i, Z_i)$. Note there exists a coordinate system such that \textbf{1}. $P$ and $Q$ are not divisible by $Z$ and \textbf{2}. $Z_i \neq 0$ \textbf{3}. $\frac{Y_1}{Z_1}, \dots, \frac{Y_{n+m}}{Z_{n+m}}$. Then we have $f(x, y) = \frac{P(X, Y, Z)}{Z^m}$, $g(x, y) = \frac{Q(X, Y, Z)}{Z^n}$ are polynomials of degree $m$ and $n$ respectively in $X/Z$, $Y/Z$. They also have $nm + 1$ solutions $(x_i, y_i)$ with all $y_i$ distinct, and $f$ and $g$ have no common factor of degree $\geq 1$. Let's view $f(x, y), g(x, y)$ as polynomials in $(\F[y])[x]$. Note that $\Res(f, g)$, a polynomial in $\F[y]$, is nonzero with roots $y_i, \dots, y_{nm+1}$. It remains to show that $\deg \Res(f, g) < nm$. Left as a (non-trivial) exercise. 
     \end{proof}
-    An application of this theorem. Suppose we are working in $\P_\C^2 = \P(\C^3)$. Curves of degree $1$ are lines, they form $\P(V^*) = \P^2$ as we have seen before. Curves of degree $2$ of form $ax^2 + bxy + cy^2 + dxz + eyz + fz^2$ form a space $\P^5$ (one less than the coordinates). All degree $2$ curves containing a point $[x_0, y_0, z_0]$ form a ($4$-dimensional) hyperplane in $\P^5$. Space of degree $2$ curves containing $2$ points $P_1, P_2$ will have dimension at least $3$, but it can be $4$. Degree $2$ curves containing $P_1, P_2, P_3$ will have dimension at least $2$, ... we thus can show that any $5$ points in $\P^2$ lie on a curve of degree $2$. 
+    % An application of this theorem. Suppose we are working in $\P_\C^2 = \P(\C^3)$. Curves of degree $1$ are lines, they form $\P(V^*) = \P^2$ as we have seen before. Curves of degree $2$ of form $ax^2 + bxy + cy^2 + dxz + eyz + fz^2$ form a space $\P^5$ (dimension one less than the number of coordinates, since we can take $f = 1$). All degree $2$ curves containing a point $[x_0, y_0, z_0]$ form a ($4$-dimensional) hyperplane in $\P^5$. Space of degree $2$ curves containing $2$ points $P_1, P_2$ will have dimension at least $3$, but it can be $4$. Degree $2$ curves containing $P_1, P_2, P_3$ will have dimension at least $2$, ... we thus can show that any $5$ points in $\P^2$ lie on a unique quadric of degree $2$. 
 
     \subsection{Lecture 7}
-    Consider $\P^5 = \P(\S^2V^*)$, the space of quadrics $F = a_1x^2 + a_2xy + \dots + a_6$ in $\P^2$, corresponding to the coordinate $[a_1:a_2\dots :a_6]$. For a $P \in \P^2$, the set $H_P$ of quadrics containing $P$ forms a hyperplane in $\P^5$. \par 
-    [The proof of this will probably be on the exam]
     \begin{theorem}
-        Let $P_1, \dots, P_5 \in \P^2$ be points in general position (no three points lie on the same line). Then there exists a unique quadric containing $P_1, \dots, P_5$. 
+        Let $P_1, \dots, P_5 \in \P^2$ be points in general position (no three points lie on the same line). Then there exists a unique conic containing $P_1, \dots, P_5$. 
     \end{theorem}
     \begin{proof}
-        Consider $H_1 \cap \dots \cap H_5$ in the space of quadrics $\P_\C^5$ (of dimension $6$), need to show that this is precisely one point. Since intersecting hyperplanes drops dimensions by at most $1$, we know that $H_{P_1} \cap \dots H_{P_5}$ has dimension at least $1$. Thus there is a quadric containing $P_1, \dots, P_5$. Assume it is not unique, so $C_1$, $C_2$ are two distinct quadrics containing those points, as such $|C_1 \cap C_2| \geq 5$ which is impossible, say taking $C_1$, $C_2$ to be lines. (TODO: confused about dimensions. Are we considering $\P^5$ in $\C^6$?)
+        Consider $\P^5 = \P(\S^2V^*)$, the space of quadrics $F = ax^2 + by^2 + cz^2 + dxy + exz + yz$ in $\P^2$, corresponding to the coordinate $[a:b:c:d:e:1]$. For a $P \in \P^2$, the set $H_{P_i}$ of quadrics containing $P_i = [x_i:y_i:1]$ forms a $4$-hyperplane in $\P^5$, the intersection of $\P^5$ with a $5$-hyperplane in $\C^6$ corresponding to the set $ax_0^2 + by_0^2 + cz_0^2 + dx_0y_0 + ex_0z_0 + y_0z_0 = 0$. Because $P_i = [x_i: y_i: z_i] = [x_i/z_i: y_i/z_i: 1]$ are in general position, then so are vectors $[x_i^2, y_i^2, z_i^2, x_iy_i, x_iz_i, y_iz_i] = [(x_i/z_i)^2, (y_i/z_i)^2, 1, x_iy_i/z_i^2, x_i/z_i, y_i/z_i]$ (look at the last two coordinates). Hence, the $5$ hyperplanes corresponding to $H_{P_i}$ in $\C^6$ are in general position also, so they must intersect at precisely one point. Thus, $P_i$ specify a unique quadric. Because $P_i$ are in general position, we cannot have the quadric be a line or a union of two lines, because then one of the lines would have to contain three of the points. Hence, the quadric containing these points is indeed a conic. 
     \end{proof}
-    [Reproducing this or something like it will be on the midterm]
+    Using this we can prove Pascal's theorem in a different way:
     \begin{theorem}
-        [Pascal's theorem on conic] Take $C = 0$ defining a conic, $A_1, \dots, A_6$, $X = A_1A_5 \cap A_2A_4$, .... Then $X, Y, Z$ lie on the same line. (TODO diagram, $A_1, \dots, A_6$ go clockwise on ellipse)
+        [Pascal's theorem on conic] Take $C = 0$ defining an irreducible conic, $A_1, \dots, A_6$, $X = A_1A_5 \cap A_2A_6$, .... Then $X, Y, Z$ lie on the same line. 
+        \begin{center}
+            \includegraphics[width = 0.7\linewidth]{pascal_pf.png}
+        \end{center}
     \end{theorem}
     \begin{proof}
-        Let $L_{UV}$ be the equation for the line through $U, V$. Consider curves $L_{A_6A_2}L_{A_5A_3}L_{A_1A_4}$ and $L{A_1A_5}L_{A_2A_4}L_{A_3A_6}$. These intersect at $A_1, \dots, A_6, X, Y, Z$. For varying $\lambda \in \C$, consider the pencil of cubic curves $L_{A_6A_2}L_{A_5A_3}L_{A_1A_4} + \lambda L{A_1A_5}L_{A_2A_4}L_{A_3A_6}$ in $\P^9$ (projective space of cubic curves). Consider any point $P \in C$ that is not $A_1, \dots, A_6$. Then there exists $\lambda_p \in \C$ such that $L_{A_6A_2}L_{A_5A_3}L_{A_1A_4} + \lambda_p L{A_1A_5}L_{A_2A_4}L_{A_3A_6}$ [Take $\lambda_p = \frac{-L_{A_4A_2}(P)L_{...}(P)L_{...}(P)}{L(...)L(...)L(...)}$]. But then $L_{A_6A_2}L_{A_5A_3}L_{A_1A_4} + \lambda_p L{A_1A_5}L_{A_2A_4}L_{A_3A_6} = CL$ (TODO)
+        Denote by $L_{UV}$ be the equation for the line through some points $U, V$. Consider cubic curves $R = L_{A_6A_2}L_{A_5A_3}L_{A_1A_4}$ (in red) and $G = L_{A_1A_5}L_{A_2A_4}L_{A_3A_6}$ (in green). These intersect at $A_1, \dots, A_6, X, Y, Z$. Consider any point $P \in C$ that is not $A_1, \dots, A_6$. Then there exists $\lambda_p \in \C$ such that $(R + \lambda_p G)(P) = 0$ [Take $\lambda_p = \frac{-R(P)}{G(P)}$]. Then $R + \lambda_p G = 0$ is degree $3$ curve that has $7$ points in common with the quadric $C$. But by weak Bezout's, $C$ and $R + \lambda_p G$ can intersect in at most $6$ unless they have a component in common. Since $C$ is irreducible, their common component must be $C$ itself, hence $R + \lambda_p G$ must be a union of $C$ and a line. The three points $X$, $Y$, $Z$ that do not lie on $C$ must then lie on a line. 
     \end{proof}
-
 
 \section{Algebraic Geometry}
-    For $\A^n$, $R = F[x_1, \dots, x_n]$, and an ideal $I \subset R$ we have a \textbf{vanishing ideal} $V(I) = \{(a_1, \dots, a_n) \in \A^n \mid f(a_1, \dots, a_n) = 0 \text{ for any } f \in I\}$. For finitely generated $I = (f_1,\dots, f_n) = \{g_1f_1 + \dots + g_nf_n\}$, we have $V(I)$ is the set of solutions of $\{f_i(x_1, \dots, x_n) = 0\}$. We will prove soon that all ideals of $F[x_1, \dots, x_n]$ are finitely generated. People name $V(I)$ \textbf{affine sets}, affine algebraic sets, affine algebraic varieties, or affine closed sets. \par 
+    For $\A^n$, $R = k[x_1, \dots, x_n]$, and an ideal $I \subset R$ we have a \textbf{vanishing ideal} $V(I) = \{(a_1, \dots, a_n) \in \A^n \mid f(a_1, \dots, a_n) = 0 \text{ for any } f \in I\}$. For finitely generated $I = (f_1,\dots, f_n) = \{g_1f_1 + \dots + g_nf_n\}$, we have that $V(I)$ is the set of solutions of $\{f_i(x_1, \dots, x_n) = 0\}$. We will prove soon that all ideals of $k[x_1, \dots, x_n]$ are finitely generated. People call $V(I)$ \textbf{affine sets}, affine algebraic sets, affine algebraic varieties, or affine closed sets. \par 
     Some properties: 
     \begin{enumerate}
         \item $V((1)) = \emptyset$.
-        \item $V((0)) = \A^n_\F$.
-        \item $V(I_1 \cup I_2) = V(I_1) \cap V(I_2)$ (inclusion $\supset$ is obvious. For $p \in V(I_1 \cup I_2)$, if $p \not \in V(I_1)$, $f \in I_1$, so $f(p) \neq 0$, same with $I_2$, so $fg \in I_1 \cap I_2$... )
-        \item $\cup V(I_\alpha) = V(\prod I_\alpha)$, where $\prod I_\alpha$ is the ideal generated by polynomials $f_1f_2\dots $ where $f_1 \in I_1, f_2 \in I_2, \dots$. 
+        \item $V((0)) = \A^n_k$.
+        \item For ideals $I, J \subset k[x_1, \dots, x_n]$, 
+        $$V(I) \cup V(J) = V(IJ)$$
+        where $IJ$ is the ideal generated by products $fg$ for $f \in I$, $g \in J$. 
+        \begin{proof}
+            Inclusion $V(I) \cap V(J) \subset V(IJ)$ is obvious. For the other inclusion, if $p \not \in V(I)$ then for any $f \in I$, $f(p) \neq 0$. Similarly $p \not \in V(J)$ implies any $g \in V(J)$ doesn't vanish on $p$. So if $p \not \in V(I) \cup V(J)$, $fg(p) \neq 0$ also, hence $p$ cannot be in $V(IJ)$.
+        \end{proof}
+        \item For a collection of ideals $I_\alpha \subset k[x_1, \dots, x_n]$, 
+        $$\cap_\alpha V(I_\alpha) = V(\sum_\alpha I_\alpha)$$
+        where $\sum_\alpha I_\alpha$ is an ideal consisting of sums of elements in various $I_\alpha$, i.e. one generated by the elements of $\cup I_\alpha$.
+        \begin{proof}
+            If $p \in \cap_\alpha V(I_\alpha)$, then polynomials in every $I_\alpha$ vanish on $p$, hence their sums vanish also. If $p \in V(\sum_\alpha I_\alpha)$, for any $\alpha$ any element of $I_\alpha$ vanishes on $p$, hence the other inclusion holds.  
+        \end{proof}
     \end{enumerate}
-    These properties imply that affine sets are closed sets of a topology, called the \textbf{Zariski topology}. \par 
+    These properties imply that affine sets are closed sets of a topology on $\A^n_\F$, called the \textbf{Zariski topology}. \par 
     ``I have 20 more minutes? *Claps hands*''\par 
     \begin{example}
         \begin{enumerate}
@@ -421,19 +457,25 @@
         [Hilbert Basis Theorem] $R$ Noetherian if and only if $R[x]$ is Noetherian. 
     \end{theorem}
     \begin{proof}
-        Say $I \subset R[x]$ is an ideal, and let $f_1$ be an element in $I$ of the smallest degree, $f_2$ be the element of smallest degree in $I \setminus (f_1)$, $f_3$ smallest degree in $I \setminus (f_1, f_2)$, ... . Then we get a chain of distinct ideals $(f_1) \subset (f_1, f_2) \subset (f_1, f_2, f_3) \subset \dots$. Let's look at the leading coefficients $a_i$ of $f_i$. Then, $(a_1, \dots, ) = (a_1, \dots, a_n)$ is finitely generated. Thus, $a_{n+1} \in (a_1, \dots, a_n)$, and as such $a_{n+1} = a_1\lambda_1 + \dots + a_n\lambda_n$. Suppose we have $f_{n+1} \in (f_1, \dots, f_n)$. Then, let 
-        $$g = f_{n+1} - \lambda_1 f_1 x^{\deg f_{n+1} - \deg f_1} - \dots - \lambda_n f_n x^{\deg f_{n+1} - \deg f_n}$$
-        so $\deg g < \deg f_{n+1}$, but $g \in I \setminus (f_1, \dots, f_n)$, which contradicts the choice of $f_{n+1}$. 
+        One direction is simple: if $I$ is an ideal of $R$, it is also an ideal of $R[x]$. If $R[x]$ is Noetherian, $R$ is finitely generated as an ideal of $R[x]$, but since $I$ is also an ideal of $R$, all its generators must be in $R$ also. But then $I$ is finitely generated over $R$ also. \par 
+        In the other direction, say $I \subset R[x]$ is an ideal, and let $f_0$ be an element in $I$ of the smallest degree, $f_1$ be an element of smallest degree in $I - (f_0)$, $f_2$ smallest degree in $I - (f_0, f_1)$ ...($-$ is set subtraction). Suppose for contradiction that $I$ is not finitely generated, so we can keep choosing $f_i$ indefinitely. Consider the leading coefficients $a_i$ of $f_i$, and the chain of ideals 
+        $$(a_0) \subseteq (a_0, a_1) \subseteq (a_0, a_1, a_2) \subseteq \dots$$
+        This is an ascending chain of ideals in $R$, hence it must stabilize at some ideal $(a_0, \dots, a_{n-1})$. Thus, the ideal of leading coefficients of $f_i$ must be generated by $a_1, \dots, a_{n-1}$. In particular, the leading coefficient $a_{n}$ of $f_{n}$ can be expressed like $\lambda_1 a_1 + \dots + \lambda_{n-1} a_{n-1}$.
+        Then consider
+        $$g = f_{n} - (\lambda_1 f_1 x^{\deg f_{n} - \deg f_1} + \dots + \lambda_{n-1} f_{n-1} x^{\deg f_{n} - \deg f_{n-1}})$$
+        (Note that by construction of our $f_i$, the exponents are valid) The leading term in the parentheses is the same as the leading term of $f_{n}$, so $\deg g < \deg f_{n}$. But also $g \in I - (f_1, \dots, f_{n-1})$ (since the term in the parantheses is in $(f_1, \dots, f_{n-1})$). This contradicts our choice of $f_n$ earlier, so we are done. 
     \end{proof}
 
     \subsection{Lecture 8}
-    There exists a correspondence between affine algebraic sets in $\A^n$ and the ideals on $k[x_1, \dots, x_n]$. Indeed, we can take any ideal $I$ on $k[x_1, \dots, x_n]$ and consider its vanishing set $V(I)$. Note the following properties we reviewed last time: $V(I \cap J) = V(I) \cup V(J)$ and $I \subset J \implies V(I) \supset V(J)$. This correspondence can be reversed: take some affine algebraic $X$ and consider $I(X) = \{f \in k[x_1, \dots, x_n] \mid \forall p \in X, f(p) = 0\}$. So given $X$, relate to it the ideal of functions that vanish on it. \par 
-    Note that this correspondence is not invertible: consider $I \subset \R[x, y]$ generated by $x^2 + y^2 + 1 = 0$. The vanishing set of this is empty, but $I(\emptyset) = \R[x, y]$. Also could consider $k = \C$ and first consider $I = (x^2)$. However 
+    There exists a correspondence between ideals on $k[x_1, \dots, x_n]$ and affine algebraic sets in $\A^n$. Indeed, we can take any ideal $I$ on $k[x_1, \dots, x_n]$ and consider its vanishing set $V(I)$. 
+    % Note the following properties we reviewed last time: $V(I \cap J) = V(I) \cup V(J)$ and $I \subset J \implies V(I) \supset V(J)$. 
+    In the other direction, take some affine algebraic $X$ and consider $I(X) = \{f \in k[x_1, \dots, x_n] \mid \forall p \in X, f(p) = 0\}$. 
+    So given $X$, we can relate to it the ideal of functions that vanish on it. Note however that this correspondence is not invertible: consider $I \subset \R[x, y]$ generated by $x^2 + y^2 + 1 = 0$. The vanishing set of this is empty, but $I(\emptyset) = \R[x, y]$ (also could consider $k = \C$ and first consider $I = (x^2)$). However:
     \begin{proposition}
         For any affine algebraic set $X \subset \A^n$ we have $V(I(X)) = X$. So, $X \to I(X)$ is an injective map.
     \end{proposition}
     \begin{proof}
-        Set $X = V(f_1, \dots, f_n)$, solutions to the system of $f_i$. If $p \in X$, then $p \in V(I(X))$. On the other hand if $p \in V(I(X))$, every $f$ which vanishes on $X$ vanishes on $p$. Thus, all $f_i$ vanish on $p$ so $p \in X$. 
+        Set $X = V(f_1, \dots, f_n)$, so $X$ consists of points on which $f_i$ vanish. If $p \in X$, then $p \in V(I(X))$ obviously. On the other hand if $p \in V(I(X))$, then all $f \in I(X)$ vanish on $p$. In particular, $f_1, \dots, f_n \in I(X)$ vanish on $p$, hence $p \in X$. 
     \end{proof}
     \begin{definition}
         Let $I \subset R$ be an ideal in a ring. The \textbf{radical} of $I$, denoted $\sqrt{I}$, is given by $\{z \in \R \mid \exists N\: z^N \in I\}$. 
@@ -446,52 +488,75 @@
         [Hilbert's Nullstellensatz] For an ideal $J \subset k[x_1, \dots, x_n]$ ($k$ is algebraically closed), we have $I(V(J)) = \sqrt{J}$.  
     \end{theorem}
     Example: $(x^2) \xrightarrow{V} 0 \in \A^1 \xrightarrow{I} (x) = \sqrt{(x^2)}$. \par 
-    `Middle school version': consider $f_1, \dots, f_m \in \C[x_1, \dots, x_n]$. Suppose that $g \in \C[x_1, \dots, x_n]$ vanishes at every solution of the system $\{f_i = 0\}_i$. Then there exists some natural $N$ such that $g^N \in (f_1, \dots, f_n)$, an ideal of $\C[x_1, \dots, x_n]$. \par 
+    `Middle school version': consider $f_1, \dots, f_m \in \C[x_1, \dots, x_n]$. Suppose that $g \in \C[x_1, \dots, x_n]$ vanishes at every solution of the system $\{f_i = 0\}_i$. Then there exists some positive integer $N$ such that $g^N$ is in $(f_1, \dots, f_n)$, an ideal of $\C[x_1, \dots, x_n]$. \par 
     \begin{definition}
-        An affine algebraic set $X$ is called \textbf{irreducible} if it cannot be presented as a union of affine algebraic sets. Thus, if $X = X_1 \cap X_2$ is irreducible, $X_1$ or $X_2$ is $X$. 
+        An affine algebraic set $X$ is called \textbf{irreducible} if it cannot be presented as a union of affine algebraic sets. Thus, if $X = X_1 \cup X_2$ is irreducible, $X_1$ or $X_2$ is $X$. 
     \end{definition}
-    \begin{theorem}
-        $X$ is irreducible iff $I(X)$ is prime (recall: $I$ prime if $ab \in I$ then either $a$ or $b$ in $I$). 
+    \begin{theorem} \label{thm:irr_iff_prime}
+        $X$ is irreducible iff $I(X)$ is prime. 
     \end{theorem}
     \begin{proof}
-        Suppose $I(X)$ is not prime, so there exist $f, g \in k[x_1, \dots, x_n]$ so $fg \in I(X)$ but $f, g \not \in I(X)$. Take $X_1 = X \cap V(f)$, $X_2 = X \cap V(g)$ ($V(f)$ is the vanishing set). Then $X = X_1 \cup X_2$, but $X_1, X_2 \neq X$. \par 
-        Suppose $X$ is not irreducible, so $X = X_1 \cup X_2$ with $X_1, X_2 \neq X$. So $I(X) \neq I(X_1)$, in fact $I(X) \subset I(X_1)$, similarly $I(X) \subset I(X_2)$ (subsets strict). As such, there exist $f \in I(X_1)$, $g \in I(X_2)$, thus $fg$ vanishes on $X_1 \cup X_2$, so $fg \in I$, and $I$ is not prime. 
+        Suppose $I(X)$ is not prime, so there exist $f, g \in k[x_1, \dots, x_n]$ with $fg \in I(X)$ but $f$ or $g \not \in I(X)$. Take $X_1 = X \cap V(f)$, $X_2 = X \cap V(g)$. Then $X = X_1 \cup X_2$, but $X_1, X_2 \neq X$ since otherwise $f$ or $g \in I(X)$. \par 
+        Suppose $X$ is not irreducible, so $X = X_1 \cup X_2$ with $X_1, X_2 \neq X$. So $I(X) \neq I(X_1)$, in fact $I(X) \subset I(X_1)$, similarly $I(X) \subset I(X_2)$ (subsets strict). As such, there exist $f \in I(X_1) - I(X_2)$, $g \in I(X_2) - I(X_1)$, thus $fg$ vanishes on $X_1 \cup X_2$, so $fg \in I(X)$ but neither $f, g \in I(X)$. 
     \end{proof}
     \begin{theorem}
         Suppose $X \subset \A^n$ is an affine algebraic set. Then
         \begin{enumerate}
-            \item There exist irreducible affine sets $X_1, \dots, X_m$ such that $X = X_1 \cup \dots \cup X_m$, and $X_i \supset X_j$ (strict). 
+            \item There exist irreducible affine sets $X_1, \dots, X_m$ such that $X = X_1 \cup \dots \cup X_m$, and $X_i \not \subset X_j$ for any $i \neq j$. 
             \item This decomposition is unique up to relabeling the sets $X_i$. 
         \end{enumerate} 
     \end{theorem}
     \begin{proof}
-        If $X$ is irreducible, we are done. Otherwise, $X = X_1 \cup X_2$, a union of proper subsets. Continue recursively until we obtain a binary tree of affine sets, where the leaves (terminating nodes) are irreducible. Suppose for contradiction the tree we obtain this way is infinite, then there exists an infinite path down the tree: $X \supset X^{(1)} \supset X^{(2)} \supset \dots $. Then $I(X) \subset I(X^{(1)}) \subset I(X^{(2)}) \subset \dots $. But this contradicts the fact that $X$ is Noetherian. \par 
-        Suppose we have two decompositions $X_1 \cup \dots \cup X_m = X_1' \cup \dots X_m'$. Take any $X_i$, then $X_i = X \cap X_i = (X_1' \cap X_i) \cup (X_2' \cap X_i) \dots \cup (X_m' \cap X_i)$. Because $X_i$ is irreducible, this implies $X_i = X_i \cap X_j'$, and as such $X_i \subset X_j'$. But performing this same argument for $X_j'$ we get $X_i \subset X_j' \subset X_k$, so $X_i = X_k$, and $X_i = X_j'$. 
+        If $X$ is irreducible, we are done. Otherwise, $X = X_1 \cup X_2$, a union of proper algebraic subsets. Then decompose $X_1, X_2$, and continue recursively until we obtain a binary tree of affine sets, where the leaves (terminating nodes) are irreducible. Suppose for contradiction the tree we obtain this way is infinite, then there exists an infinite path down the tree: $X \supset X^{(1)} \supset X^{(2)} \supset \dots $. which corresponds to an infinite chain of ideals $I(X) \subset I(X^{(1)}) \subset I(X^{(2)}) \subset \dots $ with strict inclusions. But this contradicts the fact that $X$ is Noetherian. So the tree must be finite, which must give us a finite decomposition of $X$ into a union of irreducible sets $X_i$. To get the condition $X_i \not \subset X_j$, discard any set $X_i$ which violates it. \par 
+        Suppose we have two decompositions $X_1 \cup \dots \cup X_m = X_1' \cup \dots X_m'$. Take any $X_i$, then $X_i = X \cap X_i = (X_1' \cap X_i) \cup (X_2' \cap X_i) \dots \cup (X_m' \cap X_i)$. Because $X_i$ is irreducible, we have $X_i = X_i \cap X_j'$ for some $j$, and as such $X_i \subset X_j'$. But performing this same argument for $X_j'$ we get $X_j' \subset X_k$, so $X_i = X_k$, and indeed $X_i = X'_j$. 
     \end{proof}
     Main example of affine sets are hypersurfaces: if $f(x_1, \dots, x_n)$ is an irreducible polynomial of non-zero degree, its vanishing set is an irreducible \textbf{hypersurface}. An example would be something like $xyz \pm x^2 + y^2 + z^2 + 1 = 0$. \par 
-    Recall our correspondence between algebraic sets and ideals of $k[x_1, \dots, x_n]$ from the beginning. Note that by Nullstellensatz $I(X)$ for any affine algebraic set $X$ is a radical ideal. So, restricting our correspondence to radical ideals, is correspondence becomes bijective. This same correspondence carries irreducible sets to prime ideals, hypersurfaces to principal ideals, and maximal ideals to points. \par 
-    Now we need some notions from commutative algebra. \par 
-    Suppose $A$ and $B$ are algebras over the same field $k$. Assume $A - B$, so $A \supset B$ as sets. Say that $A$ is \textbf{finitely generated over $B$} if there exist $a_1, \dots, a_n \in A$ such that $A = B[a_1, \dots, a_n]$: every $a \in A$ is a polynomial in $a_1, \dots, a_n$ with coefficients in $B$. Example: $k[x_1,\dots, x_n]$ finitely generated algebra over $k$. Another one is $\C[x, y]/(x^2 + y^2 - 1)$ is a finitely generated algebra over $\C$. \par 
-    We say $A$ is \textbf{finite} over $B$ [if $A$ is a finitely generated $B$-module] if there exist $a_1, \dots, a_n \in A$ such that for all $a \in A$ there are $b_1, \dots, b_n \in B$ so $a = a_1b_1 + \dots a_n b_n$. In other words, $A = a_1B + a_2B + \dots + a_nB$. Example: $\C[x]/(x^3 - 1)$, this is a finite algebra over $\C$, in fact a three-dimensional vector space. If your algebra is also a field, another algebra being finite over it means you have a finite-dimensional vector space.  
+    Recall our correspondence between algebraic sets and ideals of $k[x_1, \dots, x_n]$ from the beginning. Note that by Nullstellensatz, $I(X)$ for any affine algebraic set $X$ is a radical ideal. So, restricting our correspondence to radical ideals, the correspondence becomes bijective. This same correspondence carries irreducible sets to prime ideals, hypersurfaces to principal ideals (as we've shown in Theorem \ref{thm:irr_iff_prime}), and maximal ideals to single points (this is shown in the next lecture). \par 
+    % Now we need some notions from commutative algebra. Suppose $A$ and $B$ are algebras over the same field $k$. We say that $A$ is \textbf{finitely generated over $B$} if there exist $a_1, \dots, a_n \in A$ such that $A = B[a_1, \dots, a_n]$: every $a \in A$ is a polynomial in $a_1, \dots, a_n$ with coefficients in $B$. Example: $k[x_1,\dots, x_n]$ finitely generated algebra over $k$. Another one is $\C[x, y]/(x^2 + y^2 - 1)$, a finitely generated algebra over $\C$. \par 
+    % We say $A$ is \textbf{finite} over $B$ [if $A$ is a finitely generated $B$-module] if there exist $a_1, \dots, a_n \in A$ such that for all $a \in A$ there are $b_1, \dots, b_n \in B$ so $a = a_1b_1 + \dots + a_n b_n$. In other words, $A = a_1B + a_2B + \dots + a_nB$. Example: $\C[x]/(x^3 - 1)$, this is a finite algebra over $\C$, in fact a three-dimensional vector space. If your algebra is also a field, another algebra being finite over it means you have a finite-dimensional vector space.  
 
     \subsection{Lecture 9}
     \begin{definition}
-        $A$ if \textbf{finitely generated over $B$} if there exist $a_1, \dots, a_n \in A$ such that every element in $A$ is a polynomial in $a_i$ with $B$-coefficients: $A = B[a_1, \dots, a_n]$. In other words, $B[x_1, \dots, x_n] \to A$ with the map being the evaluation homomorphism $f \mapsto f(a_1, \dots, a_n)$ is surjective. In other words, $A \cong B[x_1, \dots, x_n]/I$. 
+        An algebra $A$ over $k$ is \textbf{finitely generated over $B$} (another $k$-algebra) (sometimes denoted by the tower $A - B$) if there exist $a_1, \dots, a_n \in A$ such that every element in $A$ is a polynomial in $a_i$ with $B$-coefficients: $A = B[a_1, \dots, a_n]$.  
     \end{definition}
-    Another definition, $A$ is finite over $B$ [$A$ is finite as a $B$-module] if there exist $a_1, \dots, a_n$ if for every $a \in A$ there exist $b_1, \dots, b_n$ such that $a = b_1a_1 + \dots + b_na_n$.\par 
-    Here's a key bit from commutative algebra: 
-    \begin{theorem}
-        Let $k$ be a field of characteristic $0$. Suppose that $A$ is a finitely generated algebra over $k$. Assume $A$ is a field. Then $A$ is a finite algebraic extension of $k$. 
+    In other words, $B[x_1, \dots, x_n] \to A$ with the map being the evaluation homomorphism $f \mapsto f(a_1, \dots, a_n)$ is surjective. By the first isomorphism theorem, $A \cong B[x_1, \dots, x_n]/I$.
+    \begin{definition}
+        $A$ is a \textbf{finite $B$-algebra} if there exist $a_1, \dots, a_n$ if for every $a \in A$ there exist $b_1, \dots, b_n$ such that $a = b_1a_1 + \dots + b_na_n$. In other words, $A = Ba_1 + \dots + Ba_n$. 
+    \end{definition}
+    Here's a key bit from commutative algebra, to be proven later:
+    \begin{theorem} \label{thm:fin_if_fin_alg}
+        Let $k$ be a field of characteristic $0$. Suppose that $A$ is a finitely generated over $k$. Assume $A$ is a field. Then $A$ is a finite $k$-algebra. 
     \end{theorem}
-    (Choosing $k = \C$, we know that every finitely generated algebra over $\C$ that's a field must be $\C$ itself. )\par
-    We now want to show that in the correspondence we talked about last lecture, finite sets of points correspond to maximal ideals of $k[x_1, \dots, x_n]$. \par 
-    Take $P = (a_1, \dots, a_n) \subset \A^n$ be a set of points in $\A^n$. Consider that the ideal $(x_1 - a_1, \dots, x_n - a_n)$ generated by these $n$ linear elements is then a subset of $I(P)$. Take any $f \in I(P)$, then $f(a_1, \dots, a_n) = 0$ implies $f(a_1 + y_1, \dots, a_n + y_n) = y_1f_1 + \dots + y_nf_n$ for some functions $f_i \in I(P)$. THen $f(x_1, \dots, x_n) - (x_1 - a_1)f_1 + \dots (x_n - a_n)f_n$ which implies $f \in (x_1-a_1, \dots, x_n-a_n)$. \par 
-    We further claim $I(P) = (x_1 - a_1, \dots, x_n - a_n)$ is maximal. Consider the surjective map $k[x_1, \dots, k_n] \to k $ given by the evaluation homomorphism $f \mapsto f(a_1, \dots, a_n)$. Its kernel is $I(P)$. Then $k[x_1, \dots, x_n]/(x_1- a_1, \dots, x_n - a_n) \cong k$, which implies $I(P)$ is maximal. \par 
-    Now, for every maximal ideal $M \subset k[x_1, \dots, x_n]$ there exist $a_1, \dots, a_n$ such that $M = (x_1 - a_1, \dots, x_n - a_n)$. Indeed, consider $k[x_1, \dots, x_n]/M$, a finitely generated algebra over $k$, so by theorem it is finitely generated over $k$. Then, looking at the map $k \to k[x_1, \dots, x_n]/M$, we know there are $a_1, \dots, a_n$ such that $k$ maps $a_i$ and $x_i$ to the same coset. Hence, $x_i - a_i \in M$, and $(x_1 - a_1, \dots, x_n - a_n) \subset M$. Because both sides are maximal ideals, this in fact implies equality. This proves the correspondence between points and maximal ideals. \par 
-    Now we show weak Nullstellensatz: the empty set corresponds to all of $k[x_1, \dots, x_n]$. Suppose the system of $f_1, \dots, f_m \in k[x_1, \dots, x_m]$ has no solutions, i.e. there exist $u_1, \dots, u_m$ such that $1 = f_1u_1 + \dots f_mu_m$. Indeed, suppose not, then there exists a maximal ideal $M$ with $(f_1, \dots, f_m) \subset M$, then there exist $a_i$ such that $x_i - a_i$ generate it. So $(f_1, \dots, f_m) \subset (x_1-a_1, \dots, x_n - a_n)$, hence $(a_1, \dots, a_m)$ is a solution to this system, contradiction. \par 
-    Now show strong Nullstellensatz. Suppose that $g \in k[x_1, \dots, x_n]$ vanishes at every point $p$ that's a solution to $\{f_i(p) = 0\}$ (this system has solutions). Then there exists $N$ such that $g^N \in (f_1, \dots, f_m)$. Consider $k[x_1, \dots, x_n] \subset k[x_1, \dots, x_n, t]$. Consider an ideal $J = (f_1(x_1, \dots, x_n), \dots, f_m(x_1, \dots, x_m), tg(x_1, \dots, x_m) - 1)$, we know $V(J) = \emptyset$. Then there exist some polynomials $u_1, \dots, u_{m+1} \in k[x_1, \dots, x_m, t]$ such that $u_1f_1 + \dots + u_mf_m + u_{m+1}(tg-1) = 1$. Plug in $t = \frac{1}{g}$, then $u_1(x_1, \dots, x_n, 1/g)f_1(x_1, \dots, x_n) + \dots = 1$, and 
-    $$\frac{\tilde{u}(x_1, \dots, x_n)}{g^m}f_1(x_1, \dots, x_m) + \dots + \frac{\tilde{u}(x_1, \dots, x_m)}{g^m} = 1$$
-    Multiply by $g^m$ on both sides and we are done. This type of reduction of strong to weak Nullstellensatz is called the Rabinovich trick. \par 
+    (Choosing e.g. $k = \C$, we know that every finitely generated algebra over $\C$ that's a field must be $\C$ itself. )\par
+    \begin{proposition}
+        For $P = \{a = (a_1, \dots, a_n)\} \subset \A^n_k$, $I(P) \subset k[x_1, \dots, x_n]$ is maximal. Conversely, if $M \subset k[x_1, \dots, x_n]$ is maximal, then $V(M) \subset \A^n_k$ is a single point.
+    \end{proposition}
+    \begin{proof}
+        Firstly, we show that $I(P)$ is precisely $(x_1 - a_1, \dots, x_n - a_n)$. The ideal $(x_1 - a_1, \dots, x_n - a_n)$ is clearly a subset of $I(P)$. On the other hand, take any $f \in I(P)$, then $f(a_1, \dots, a_n) = 0$, and $f(y_1 + a_1, \dots, y_n + a_n)$ is some polynomial in $y_i$ with coefficients in $k$. Plugging in $y = x_i - a_i$ we get that $f(x_1, \dots, x_n)$ is a polynomial in $x_i - a_i$ with coefficients in $k$, i.e. $f \in (x_1-a_1, \dots, x_n-a_n)$. We further claim $I(P) = (x_1 - a_1, \dots, x_n - a_n)$ is maximal. Consider the surjective map $k[x_1, \dots, k_n] \to k $ given by the evaluation homomorphism $f \mapsto f(a_1, \dots, a_n)$. Its kernel is $I(P)$. Then by the first isomorphism theorem, $k[x_1, \dots, x_n]/(x_1- a_1, \dots, x_n - a_n) \cong k$, a field, which implies $I(P)$ is maximal. \par 
+        Conversely we show that for every maximal ideal $M \subset k[x_1, \dots, x_n]$ there exist $a_1, \dots, a_n$ such that $M = (x_1 - a_1, \dots, x_n - a_n)$. Indeed, consider $k[x_1, \dots, x_n]/M$, a finitely generated algebra over $k$ and a field, so by Theorem \ref{thm:fin_if_fin_alg} it is generated by some $b_1, \dots, b_n$ over $k$. Thus, the composition $\phi: k \to k[x_1, \dots, x_n] \xrightarrow{\pi} K = k[x_1, \dots, x_n]/M$ is such that there exist $a_i \in k$ with $\phi(a_i) = \pi(x_i)$. This implies that $(x_1 - a_1, \dots, x_n - a_n) \subset m$, but $(x_1 - a_1, \dots, x_n - a_n)$ as a maximal ideal, as proven above. Hence, $m = (x_1 - a_1, \dots, x_n - a_n)$. 
+    \end{proof}
+
+    Now we show 
+    \begin{proposition}[Weak Nullstellensatz]
+        The vanishing set of $k[x_1, \dots, x_n]$ is the empty set. In other words, if $J \subset k[x_1, \dots, x_n]$ is a proper ideal, $V(J) \neq \emptyset$. 
+    \end{proposition}
+    \begin{proof}
+        Let $J = (f_1, \dots, f_n) \subset k[x_1, \dots, x_n]$, and suppose for the sake of contradiction that $V(J) = \emptyset$. Then there exists a maximal ideal $M = (x_1 - a_1, \dots, x_n - a_n)$ for some $a_i$ such that $(f_1, \dots, f_m) \subset (x_1-a_1, \dots, x_n - a_n)$. But $V(M) = \{P\}$ is non-empty, and $V(M) \subset V(J)$. Contradiction. 
+    \end{proof} 
+
+    Now we prove Nullstellensatz. 
+    \begin{proof}
+        % Suppose that $g \in k[x_1, \dots, x_n]$ vanishes at every point $p$ that's a solution to $\{f_i(p) = 0\}$ (this system has solutions). Then there exists $N$ such that $g^N \in (f_1, \dots, f_m)$. Consider $k[x_1, \dots, x_n] \subset k[x_1, \dots, x_n, t]$. Consider an ideal $J = (f_1(x_1, \dots, x_n), \dots, f_m(x_1, \dots, x_m), tg(x_1, \dots, x_m) - 1)$, we know $V(J) = \emptyset$. Then there exist some polynomials $u_1, \dots, u_{m+1} \in k[x_1, \dots, x_m, t]$ such that $u_1f_1 + \dots + u_mf_m + u_{m+1}(tg-1) = 1$. Plug in $t = \frac{1}{g}$, then $u_1(x_1, \dots, x_n, 1/g)f_1(x_1, \dots, x_n) + \dots = 1$, and 
+        % $$\frac{\tilde{u}(x_1, \dots, x_n)}{g^m}f_1(x_1, \dots, x_m) + \dots + \frac{\tilde{u}(x_1, \dots, x_m)}{g^m} = 1$$
+        % Multiply by $g^m$ on both sides and we are done. This type of reduction of strong to weak Nullstellensatz is called the Rabinovich trick.
+        We show that for any $f \in J = (f_1, \dots, f_n)$, we have some $N$ such that $f^N \in J$. Consider the ideal $J_f \subset k[x_1, \dots, x_n, t]$ generated by $f_1, \dots, f_n, ft - 1$. Then its vanishing ideal $V(J_f) = \{(P, b) \in \A^{n+1}_k \mid P \in J(F), bf(P) = 1\}$ is empty as the conditions are contradictory. Hence, $J_f = k[x_1, \dots, x_n, t]$, in particular 
+        $$1 = \left(\sum g_if_i\right) + g_{0}(ft - 1)$$
+        Let $N$ be the degree of the right hand side as a polynomial in $t$. Then, consider 
+        $$f^N = \left(\sum G_if_i \right) + G_0(ft - 1)$$
+        where $G_i$ are polynomials in $x_1, \dots, x_n, ft$ (by construction there should be enough $f$ factors to associate each $t$ factor with an $f$ factor). Then, by passing this identity through the quotient by the ideal $(ft - 1)$ we get 
+        $$f^N \equiv \sum h_i f_i$$
+        where $h_i(x_1, \dots, x_n) = G_i(x_1, \dots, x_n, 1)$. But the quotient map is injective, hence this identity holds in $k[x_1, \dots, x_n]$. We conclude $f^N \in J$, so $I(V(J)) \subset \sqrt{J}$. Since the other inclusion is obvious, we are done.   
+    \end{proof}
     Now we should probably prove the commutative algebra result we've been relying on. 
     \begin{lemma}
         If $A - B$ and $B - C$ are finite then $A - C$ is finite. 
@@ -521,16 +586,16 @@
         There exists an \textit{adjunct} matrix $X^*$ to the matrix $X$ above such that $X^*X = \det X \Id X^*$. Then we also get 
         $(\det X)a_i = 0$ and $\det X = b_1a_1 + \dots $ (TODO) 
     \end{proof}
-    Final 
+    Final lemma:
     \begin{lemma}
          $B[x] - B$ is finite.
     \end{lemma}
 
     \subsection{Lecture 10}
-    Now we should prove Theorem 17 from above, because everything relies on it. Let's restate it: 
-    \begin{theorem}
+    Now we should prove Theorem \ref{thm:fin_if_fin_alg} from above, because everything relies on it. Let's restate it: 
+    \begin{theorem*}
         Let $k$ be an infinite field, and $A$ is a finitely generated algebra over $k$. Then $A$ is a finite algebraic extension of $k$. 
-    \end{theorem}
+    \end{theorem*}
     We introduced three lemmas last time. Let's do a forth:
     \begin{lemma}
         Let $A$ be finite over $B$, If $A$ is a field, then $B$ is a field. 
