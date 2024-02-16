@@ -18,6 +18,9 @@
 \newcommand{\Mor}{\mathrm{Mor}}
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\Frac}{\mathrm{Frac}}
+\renewcommand{\O}{\mathcal{O}}
 
 \newtheorem{fact}{Fact}[section]
 \newtheorem{definition}{Definition}[section]
@@ -628,7 +631,7 @@
         Hence $a_n$ is a root of a monic polynomial with coefficient in $k[a'_1, \dots, a'_{n-1}]$. Hence, $k[a_1, \dots, a_n] - k[a_1', \dots, a_{n-1}']$ is finite, using the inductive assumption, but now we can find $k[y_1, \dots, y_m]$ such that $k[a_1, \dots, a_n] - k[y_1, \dots, y_m]$ is finite. 
     \end{proof}
     \begin{definition}
-        If $X$ is an afffine algebraic set $\subset \A^n$, a function $f: X \to k$ is called \textbf{regular} or ``polynomial'' if there exists $F \in k[x_1, \dots, x_n]$ such that for all $(a_1, \dots, a_n) \in X$ we have $f(a_1, \dots, a_n) = f(a_1, \dots, a_n)$.  
+        If $X$ is an afffine algebraic set $\subset \A^n$, a function $f: X \to k$ is called \textbf{regular} or ``polynomial'' if there exists $F \in k[x_1, \dots, x_n]$ such that for all $a = (a_1, \dots, a_n) \in X$ we have $f(a_1, \dots, a_n) = F(a_1, \dots, a_n)$. 
     \end{definition}
     \begin{example}
         Consider $X \subset \A^2$, $X = V(y-x^2)$. Then we have $f(x, y) = x^3 + y$ which ``equals'' $xy + y$ on $X$. 
@@ -657,7 +660,7 @@
     \begin{enumerate}
         \item $\C[x] \to \C$ via $x \mapsto 3$.
         \item $\C[y] \to \C[x, y]/(y^2 - x)$ via inclusion. 
-        \item $\C[x, y]/(x^2+y^2-1) \xrightarrow{\widetilde{}} \C[t_1, t_2]/(t_1t_2 - 1)$ so this is an isomorphism in the category.
+        \item $\C[x, y]/(x^2+y^2-1) \xrightarrow{} \C[t_1, t_2]/(t_1t_2 - 1)$ so this is an isomorphism in the category.
     \end{enumerate} 
     We want to say that these categories are in some way the same. For this, define a map $F: \mathcal{C} \to \mathcal{D}$ between categories, called a \textbf{functor}. For any object $X \in \mathcal{C}$, a functor $F$ gives an object $F(X) \in \mathcal{D}$. For any morphism $f: X \to Y$ we have a map $F(f): F(X) \to F(Y)$. \par 
     Let a (contravariant) functor between the category of affine algebraic varities and finitely generated algebras over $k$ be given by $k[X] = k[x_1, \dots, x_n]/I(X)$. This functor takes a map $f: X \to Y$ given by $(x_1, \dots, x_n) \mapsto (F_1(x_1, \dots, x_n), \dots, F_m(x_1, \dots, x_n))$ to the map $k[Y] = k[y_1, \dots, y_m]/I(X) \to k[X] = k[x_1, \dots, x_n]/I(X)$ by $y_i \to F_i(x_1, \dots, x_n)$. \par 
@@ -679,7 +682,37 @@
         If $\mathcal{C}$ and $\mathcal{D}$ are categories, $F: \mathcal{C} \to \mathcal{D}$ Then $F$ is an equivalence of categories if and only if $F$ is fully faithful and essentially surjective. 
     \end{theorem}
 
-
-
-
+    \subsection{Lecture 12}
+    In analysis you studied the tangent space to a manifold at a point. We want to talk about this concept for algebraic varieties. Let $X \subset \A^n$, $p \in X$. We want to define $T_pX \subset \A^n$ an affine subspace. Our eventual goal is to define this space in terms of $k[X]$, the ring of functions on $X$. \par 
+    Let $k$ be a char 0, algebraically closed field. Consider $X \subset \A^n$, $p = (0, \dots, 0)$, $a \in (a_1, \dots, a_n) \in \A^n$. Suppose $I(X) = (f_1, \dots, f_m)$. Then consider a line $L_a = \{(ta_1, \dots, ta_n) \mid t \in k\}$. In this case $X \cap L_a = \{t \mid \{f_1(ta_1, \dots, ta_n) = 0, \dots, f_m(ta_1, \dots, ta_n) = 0\}\}$. Let $f(t)$ be the GCD of $f_i$ in that system, so $X \cap L_a$ are the roots of $f(t)$. Note $p \in X$ means $t = 0$ is a root of $f(t)$, and $L_a$ being tangent to $X$ at $p$ means $t = 0$ is in fact a double root, i.e. $t^2 \mid f(t)$.  Thus, $t^2\mid f(t)$ implies $t^2 \mid f_i(ta_1,\dots, ta_m)$ for all generators $f_i$ of $I(X)$. \par
+    Reminder of Taylor's formula for polynomials at $p$:
+    $$F(x_1, \dots, x_n) = F(p) + \sum \frac{\partial F}{\partial x_i}(p)(x_i - p_i) + \sum\frac{\partial F}{\partial x_i \partial x_j}(p) (x_i - p_i)(x_j - p_j) + \dots $$
+    (number of sums finite because $F$ has derivatives only as high as its degree). Denote by $d_pF$ the first sum above after $F(p)$. Then, $t^2 \mid f_i(ta_1, \dots, ta_n) = 0 + [\frac{\partial f_i}{\partial x_i}ta_i + \dots] + \frac{\partial f_1}{\partial x_i x_j}t^2 a_1 + \dots$. In other words, $d_pf_i(a_1, \dots, a_n) = 0$ for $1 \leq i \leq m$. 
+    \begin{definition}
+        For $X \subset \A^n$, $p \in X$, $T_pX = V(d_pf \mid f \in I(X))$.
+    \end{definition} 
+    This is an affine subspace, and a vector space of dimension $\leq n$.
+    \begin{theorem}
+        For an affine algebraic variety $X \subset \A^n$ (and $p = (p_1, \dots, p_n) \in X$), $k[X] = k[x_1, \dots, x_n]/I(X)$, let $\mathfrak{m}_p$ be the regular functions on $X$ vanishing at $p$. There exists a canonical isomorphism 
+        $$(T_pX)^* \cong \m_p/\m_p^2$$
+    \end{theorem} 
+    \begin{proof}
+        Functions in $\m_p$ are $f \in k[X]$ such that $f(p) = 0$ and $f = F(x_1, \dots, x_n)\mid_{x}$ (so $F(p_1, \dots, p_n) = 0$). We send every such $f$ to the linear function $d_pF$ on $\A^n$. This map is well defined, since indeed if $\tilde{F}\mid_X = F\mid_X$ we know $\tilde{F} = F + g_1f_1 + \dots + g_mf_m$. But then 
+        $$d_p\tilde{F} = d_pF + f_1(p)d_pg_1 + \dots + f_m(p)d_pg_m + g_1(p)d_pf_1 + \dots + g_m(p)d_pf_m$$
+        But $f_i(p) = 0$, so $d_p\tilde{F}\mid_{T_pX} = d_pF\mid_{T_pX}$. \par 
+        So this map $d_p: \m_p \to (T_pX)^*$ is well-defined, linear, and $\m^2_p \subset \ker d_p$ (since $d_p(F_1F_2) = F_1(p)d_pF_2 + F_2(p)d_pF_1 = 0$), so we have a linear map $\m_p/\m^2_p \to (T_pX)^*$. This is surjective because for any linear function $\lambda(x_1-p_1) + \dots + \lambda_n(x_n - p_n) \in (T_pX)^*$, we have $d_p(\lambda(x_1 - p_1) + \dots + \lambda(x_n - p_n))$ equals to it. The map is also injective since if $d_pF = 0$ we have $F = \sum(...)x_ix_j + \sum (...)x_ix_jx_k + \dots $ i.e. $F \in \m^2_p$. 
+    \end{proof}
+    Another way to understand this is to try to understand if $T_pX \cong (\m_p/\m^2_p)$, i.e. can you find a pairing $T_pX \otimes (\m_p/\m^2_p) \to k$? Yes, the directional derivative $D_vf$. \par 
+    Let's briefly talk about local rings. Recall that $X$ is irreducible iff $I(X)$ is prime iff $k[X]$ is an integral domain (TODO?). Note the field of fractions $\Frac(k[X]) = k(X)$. For example $k(\A^n)$ is the set of all $P/Q$ where $P, Q \in k[X]$ with $Q \neq 0$. On the other hand $k[X]$ are restrictions of rational functions $P/Q$ on $\A^n$ such that $Q \mid_{X} = 0$. Note $k(X) \subset k(\A^n)$. \par
+    % For example consider $k(X) = \mathrm{Frac}(k[x, y]/(x^2 + y^2 -1))$. 
+    \begin{definition}
+        The \textbf{local ring} $\O_p$ is the subring of $k(X)$ consisting of $(F/G)\mid_{X}$ where $G(p) \neq 0$. 
+    \end{definition}
+    So for $X \in \A^2$, $\O_{(0, 0)} = \{\frac{F(x, y)}{G(x, y)} \mid G(0, 0) \neq 0\}$. So $\frac{x+y}{1+x}$ is ok, $\frac{x^2 + y^2}{xy}$ is not. \par 
+    \begin{lemma}
+        $\O_p$ has a unique maximal ideal. 
+    \end{lemma}
+    Consider $\{F/G \mid F(p) = 0, G(p) \neq 0\} = \m_p\O_p$, every element in $\O_p \setminus (\m_p\O_p)$ is invertible, so $\m_p \O_p$ is maximal. \par 
+    Another good fact is $(T_pX)^* = (\m_p\O_p)/(\m_p\O_p)^2$. \par 
+    The intersection number $I_p(X, Y) = \dim_\C \frac{\O_p\A^2}{(f(x, y), g(x, y))}$. 
 \end{document} 
