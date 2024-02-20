@@ -21,6 +21,7 @@
 \newcommand{\m}{\mathfrak{m}}
 \newcommand{\Frac}{\mathrm{Frac}}
 \renewcommand{\O}{\mathcal{O}}
+\renewcommand{\phi}{\varphi}
 
 \newtheorem{fact}{Fact}[section]
 \newtheorem{definition}{Definition}[section]
@@ -714,5 +715,62 @@
     \end{lemma}
     Consider $\{F/G \mid F(p) = 0, G(p) \neq 0\} = \m_p\O_p$, every element in $\O_p \setminus (\m_p\O_p)$ is invertible, so $\m_p \O_p$ is maximal. \par 
     Another good fact is $(T_pX)^* = (\m_p\O_p)/(\m_p\O_p)^2$. \par 
-    The intersection number $I_p(X, Y) = \dim_\C \frac{\O_p\A^2}{(f(x, y), g(x, y))}$. 
+    The intersection number $I_p(X, Y) = \dim_\C \frac{\O_p\A^2}{(f(x, y), g(x, y))}$. \par 
+
+    \subsection{Lecture 13}
+    \begin{definition}
+        If $X$ is irreducible, then the \textbf{dimension} of $X$ is the minimum of all dimensions of its tangent spaces $T_pX$. If $X = \cup X_i$, a union of irreducible spaces, then the dimension of $X$ is $\max_i \dim X_i$. 
+    \end{definition}
+    Consider the sets $S_0(X) \supset S_1(X) \supset \dots$ where $S_r(X) = \{p \in X \mid \dim T_pX \geq r\}$. 
+    \begin{lemma}
+        $S_r(X)$ is closed in the Zariski topology. 
+    \end{lemma}
+    \begin{proof}
+        Note that if $I(X) = (f_1, \dots, f_m)$ we have $T_pX = V(df_p, \dots, d_pf_m)$, so $\dim T_pX = n - \mathrm{rank}\left[\frac{\partial f_i}{\partial x_j}\right]$. Hence $S_r(X) = \{p \in X \mid \mathrm{rank}\left[\frac{\partial f_i}{\partial x_j}\right] \leq n - r\}$, in other words, the set of all $p \in X$ such that all minors of size $n-r+1$ of the matrix $\left[\frac{\partial f_i}{\partial x_j}\right]$ vanish. Since this is given by a system of polynomial equations (determinants of minors $= 0$), this set must be closed. 
+    \end{proof}
+    Corollary: if $X \subset $ irreducible affine algebraic set, $d = \dim X$, then there exists $U \subset X$ that is open dense set such that for every point $p \in U$, $\dim T_pX = \dim X$. These points are called \textbf{smooth}.  
+    \begin{definition}
+        A \textbf{quasiaffine algebraic variety} is any intersection $X \cap U$ of a (Zariski) closed $X \subset \A^n$ and a (Zariski) open set $U \subset \A^n$.  
+    \end{definition} 
+    We can define an analogous thing for $\P^n$, giving it the Zariski topology of solution sets of systems of homogeneous polynomials. 
+    \begin{definition}
+        A \textbf{quasiprojective variety} is an intersection of a closed set in $\P^n$ with an open one.  
+    \end{definition}
+    Here is another definition of dimension: Let $X$ be an irreducible affine algebraic variety. Then we have a tower $k(X) - k[X]$. Recall that $t_1, \dots, t_m \in k(X)$ are called \textit{algebraically independent} if $F(t_1, \dots, t_m) = 0$ with $F$ a polynomial implies $F = 0$ (actually should be a rational function but here saying polynomial is fine). Then, $t_1, \dots, t_m$ is a \textbf{transcendence basis} if they are algebraically independent, and for any $t \in k(X)$, $t, t_1, \dots, t_m$ are algebraically dependent. \par 
+    We have a similar result to one in linear algebra:
+    \begin{theorem}
+        Every two transcendence bases have the same cardinality. 
+    \end{theorem}
+    \begin{example}
+        \begin{enumerate}
+            \item $\A^n$, then $k(\A^n) = k(x_1, \dots, x_n)$, transcendence degree $n$.
+            \item $X = V(y^2 - x^3 + 1)$, then $k[X] = k[x, y]/(y^2 - x^3 + 1)$, there is a tower over $k[X]$, and also $k[X] = k(X)[y]/(y^2 - x^2 + 1)$, note that $x$ is then a transcendence basis of this field. 
+            \item $X$ a hypersurface in $\A^n$ given by $f(x_1, \dots, x_n) = 0$. So, considering $k[x_1, \dots, x_n]/$ $(f(x_1, \dots, x_n))$, $(k[x_1, \dots, x_{n-1}][x_n]/(f)) - k(x_1, \dots, x_{n-1})$, hence the transendence degree of $k(X)$ is $n-1$
+        \end{enumerate}
+    \end{example}
+    \begin{theorem} \label{thm:dim_equiv}
+        For $X$ irreducible affine algebraic variety, $\min \{\dim T_pX \mid p \in X\} = $ transcendence degree of $k(X)$. 
+    \end{theorem}
+    The proof is via rational maps. 
+    \begin{definition}
+        A map $\phi \in k(X)$ for $X$ irreducible affine algebraic variety is \textbf{regular} at $p \in X$ if $\phi = f/g$, with $f, g \in k[X]$ and $g(p) \neq 0$.  
+    \end{definition}
+    \begin{example}
+        Take a circle $X = V(x^2 + y^2 - 1)$, and take a function $\frac{y-1}{x}$, which we can take to be in $k(X)[y]/(y^2 + x^2 - 1)$, so $\phi = \frac{-x}{y+1}$ gives us the same function on $X$ where both are defined, except the latter is defined everywhere except at the bottom point of the circle. So $\phi$ is regular everywhere except $(0, -1)$. 
+    \end{example}
+    Last time we defined $\O_p$ to be the set of all functions that are regular at $p$.
+    \begin{theorem}
+        For $X$ an affine algebraic variety,
+        $$k[X] = \cap_{p \in X} \O_p$$
+    \end{theorem}
+    \begin{proof}
+        One direction is obvious. Now suppose $\phi \in k(X)$ is in every $\O_p$, so for any $p$ there exist $f_p, g_p \in k[X]$ such that $\phi = \frac{f_p}{g_p}$ with $g_p(p) \neq 0$. Consider the ideal $I$ generated by all $g_p$ for varying $p \in X$. Then $V(I) = \emptyset$, if not there is a $q \in V(I)$, for all $p \in X$, $g_p(q) = 0$, but what if $p = q$? Hence, applying Nullstellensatz, $I = k[X]$, and so $k[X] \ni 1 = u_1g_{p_1} + u_2g_{p_2} + \dots + u_kg_{p_k}$. Then 
+        $$\phi = \phi \cdot (u_1g_{p_1} + u_2g_{p_2} + \dots + u_kg_{p_k}) = u_1f_{p_1} + \dots u_kf_{p_k} \in k[X]$$
+    \end{proof}
+    [Proof might be on the final]\par 
+    For $\phi \in k(X)$, let the \textit{domain} $D(\phi) := \{p \in X \mid \phi \text{ is regular at } p \}$. Then $D(\phi)$ is open and dense in $X$, since $D(\phi) = \bigcup \{g \neq 0\}$ where the union is over all possible $g$ in the presentation $\phi = f/g$. We can redefine the field of fractions in terms of regular maps: 
+    $$k(X) = [U, \phi]/([U_1, \phi_1] \sim [U_2, \phi_2])$$
+    Where $\phi: U \to \A^1$ is a regular function on its open domain $U$, and functions are identified if they are equal on the intersections of their domains. Showing this is equivalent to an old definition is left as an exercise. \par 
+    If $X$ and $Y$ are irreducible affine varieties, $\phi: X \subset \A^n \to Y \subset \A^m$ is regular if $\phi = (\phi_1, \dots, \phi_m)$ where $\phi_i \in k(X)$. For all $p \in \cap D(\phi_i)$, $(\phi_1(p), \dots, \phi_m(p)) \in Y$. \par 
+    Some examples include stereographic projections. 
 \end{document} 
