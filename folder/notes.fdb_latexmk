@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1708447842 "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" "notes.pdf" "notes" 1708447845 0
-  "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" 1708447839 84387 d96dca54de99105dd18b5bbed23c84dc ""
+["pdflatex"] 1708620713 "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" "notes.pdf" "notes" 1708620716 0
+  "/Users/ramanaliakseyeu/Documents/Stuff/classes/Y3Q2/alg geo/rudenko_alg_geo/folder/notes.tex" 1708620713 89703 fab44481a7723b9b9eb5cb3df4bb1222 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -184,9 +184,9 @@
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
   "chasles.png" 1707775043 122017 e2ed0b93fa1873267765147bc83c576a ""
   "crossratio.png" 1704991106 55358 70d5c61d6415eac888371bbbffd10009 ""
-  "notes.aux" 1708447844 2535 bd66a8454eec08deed8b03fdf591cb2f "pdflatex"
-  "notes.out" 1708447844 1668 8d75c5497421d5346f1af65f792e11bf "pdflatex"
-  "notes.tex" 1708447839 84387 d96dca54de99105dd18b5bbed23c84dc ""
+  "notes.aux" 1708620715 2653 06b68f48ee478e65843a0a6ea347c373 "pdflatex"
+  "notes.out" 1708620715 1779 3b8e683c28025b2c4c752ccce088508a "pdflatex"
+  "notes.tex" 1708620713 89703 fab44481a7723b9b9eb5cb3df4bb1222 ""
   "pappus.png" 1704989694 66256 194e1a6f6c1e42af8625ff186ecc8a61 ""
   "pappus_case_2.png" 1707777237 90792 abcc4fee93bfbff2388f9b4b90daa39a ""
   "pappus_dual.png" 1707773860 366406 3cba0ea2a5398eae8da6e8cf269fc072 ""
@@ -195,6 +195,7 @@
   "pascals-theorem.PNG" 1704382914 46529 71addeaeb5b824fce7cd49ebac7532e4 ""
   "proj-plane.jpg" 1704386649 24677 f02b9f0455d19e21b8a4a57658fe21ef ""
   "quiver.sty" 1705001517 1606 6e061d19851dd595ea9f806dbc16500b ""
+  "stereo.png" 1708617459 4267 173b0266e707748e84b5efc243a006de ""
   (generated)
   "notes.aux"
   "notes.log"
