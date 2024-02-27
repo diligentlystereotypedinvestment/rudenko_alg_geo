@@ -22,6 +22,7 @@
 \newcommand{\Frac}{\mathrm{Frac}}
 \renewcommand{\O}{\mathcal{O}}
 \renewcommand{\phi}{\varphi}
+\newcommand{\mult}{\mathrm{mult}}
 
 \newtheorem{fact}{Fact}[section]
 \newtheorem{definition}{Definition}[section]
@@ -816,4 +817,99 @@
     \end{definition}
     Proving that this is equivalent to the previous definitions is difficult.\par 
     Suggested further action: if you're abitious, read the first part Shafarevich, chapters 1, 2, 3. This gives a very good classical foundation in the subject. Most people read Harthshorne for the scheme theory, but it's easier to get intuition from Shafarevich. After this course you should be able to read those chapters pretty comfortably. After that, there are two big sources of examples: curves and surfaces.We will talk about curves for the remainder of the course. 
+
+    \subsection{Lecture 15}
+    We will not prove Bezoiut's, we need 5 more classes for that. Let's remind ourselves of what it is. Let $C$ be a projective variety in $C$, defined by the vanishing set of a homogeneous polynomial $F(x, y, z)$ of degree $d$. If $d = 1$, $C$ is a line, $d= 2$ means $C$ is a pair of lines or a conic, $d = 3$ is as we will discuss an elliptic curve (or otherwise something not smooth).\par 
+    We will show that points on an elliptic curve form a group, under the following addition law: (we are adding $P$ and $Q$)
+    \begin{center}
+        \includegraphics[width = 0.6\linewidth]{add_elliptic.png}
+    \end{center}
+    Bezoiut's theorem: suppose $C_1$ and $C_2$ are projective curves on $\P^2$ with no common irreducible components. Then, 
+    $$\sum_{P \in \P^2}I_P(C_1, C_2) = \deg(C_1)\deg(C_2)$$
+    Where $I_P$ is the intersection multiplicity of $C_1$ and $C_2$ at $P$. Goal is not to prove this theorem but to define the ``intersection multiplicity'' well. \par 
+    \begin{definition}
+        Consider two curves $C_1, C_2 \subset \A^2$, $C_1$ given by $f(x, y) = 0$ and $C_2$ given by $g(x, y) = 0$. Then the \textbf{intersection number} of $C_1$ and $C_2$ at a point $P \in \A^2$ is 
+        $$I_P(C_1, C_2) = \dim \frac{\O_{\A^2, P}}{(f, g)}$$
+    \end{definition}
+    Reminder: $\O_{\A^2, P}$ (denoted also $\O_P$) is the set of all $\frac{u(x, y)}{v(x, y)}$ with $u, v, \in k[x, y]$, $v(P) \neq 0$. This has a unique maximal ideal $\m_P = \{u/v \mid v(P) = 0, u(P) \neq 0\}$. Hence, $\O_P/\m_P \cong k$ for example. $\dim$ above is defined to be the transcendence degree. \par 
+    \begin{example}
+        We have that $\O_{\{0\}}/(x, y) = k$ since $(x, y)$ is precisely the maximal ideal of the local ring, hence the interesection number of the $x$ and $y$ axes is $1$.
+    \end{example}
+    \begin{proposition}
+        $I_P(C_1, C_2) \geq 1$ if and only if $P \in C_1 \cap C_2$. 
+    \end{proposition}
+    \begin{proof}
+        If $P\neq C_1$, then $f(P) \neq 0$ ($C_1$ defined by $f= 0$), so $f \in \O_P$, and similarly $g \in \O_P$. As such $(f, g) = \O_P$ and $\dim \O_P/(f, g) = 0$. \par 
+        On the other hand if $P \in C_1 \cap C_2$ then $f(P) = g(P) = 0$, hence $\m_P = (f, g)$. Thus $\dim \O_P/(f, g) \geq \dim \O_P/\m_P = 1$. 
+    \end{proof}
+    \begin{proposition}
+        The intersection number $I_P(C, L)$ of a curve given by $f = 0$ and a line $L$, is equal to the multiplicity of $P$ as a root of $f\mid_P$. 
+    \end{proposition}
+    We consider the multiplicity of $P$ since plugging in linear expressions for $x, y$ makes $f$ a polynomial in one variable. \par 
+    \begin{proof}
+        WLOG set $P = (0, 0)$ and $L = \{y = 0\}$. Then considering 
+        $$f(x, y) = a_0 + a_{1, 0}x + a_{0,1}y + a_{2, 0}x^2 + \dots $$
+        we get 
+        $$f\mid_L = a_0 + a_{1, 0}x + a_{2, 0}x^2 + \dots = a_kx^k + \dots = x^k(1 + x + x^2 + \dots)$$
+        where $a_k$ is the first non-zero coefficient, so $\mult_0 f\mid_L = k$. \par 
+        The thing in parens is a unit, so $(f(x, y), y) = (f\mid_L, y) = (x^k, y)$. Since $\O_0/(x^k, y)$ has basis $1, x, x^2, \dots, x^{k-1}$, we know that its dimension is $k$. 
+    \end{proof}
+    \begin{definition}
+        $C_1$ and $C_2$ intersect \textbf{transversally} at $P$ if 
+        \begin{enumerate}
+            \item $C_1$ and $C_2$ are smooth at $P$. 
+            \item $(T_PC_1) \cap (T_PC_2) = \{P\}$. 
+        \end{enumerate}
+    \end{definition}
+    \begin{theorem}\label{thm:1_int}
+        $C_1$ and $C_2$ intersect at transversally at $P$ if and only if $I_P(C_1, C_2) = 1$. 
+    \end{theorem}
+    To prove this we need to consider the certain form of Nakayama lemma. 
+    \begin{lemma}
+        [Nakayama] Let $A$, $B$ be algebras, $A$ is finite over $B$. If $A \neq 0$ and $I \subsetneq B$ is a proper ideal. Then $IA \subseteq A$. 
+    \end{lemma}
+    \begin{proof}
+        Since $A$ is fininte over $B$, $A = a_1B + \dots a_nB$ for some elements $a_i \in A$. Suppose for contradiction $IA = A$, then 
+        $$\begin{cases}
+            a_1 = a_1\lambda_{11} + \dots + a_n\lambda_{n1} \\
+            a_2 = a_1\lambda_{12} + \dots + a_n\lambda_{n2} \\
+            \dots 
+            a_n = a_1\lambda_{1n} + \dots + a_n\lambda_{nn} \\
+        \end{cases}
+        $$
+        where all $\lambda$'s are in $I \subset B$. Rearranging we get the system 
+        $$\begin{bmatrix}
+            \lambda_{11} - 1 & \dots &  \lambda_{n1} \\
+            \vdots & \ddots & \vdots \\
+            \lambda_{1n} & \dots & \lambda_{nn} - 1
+        \end{bmatrix}\begin{bmatrix}
+            a_1 \\
+            \vdots \\
+            a_n
+        \end{bmatrix} = 0$$
+        Hence the determinant of the coefficient matrix has to be zero, in other words, via definition of determinant we then get that $1 \in I$, but this would mean $I = B$, contradiction. 
+    \end{proof}
+    \begin{proposition}
+        Let $X$ be an affine variety. Recall $\m_P/\m_P^2 = (T_PX)^*$. Let $f_1, \dots, f_n \in \m_P$. Then $(f_1, \dots, f_n) = \m_P$ iff $\overline{f_1}, \dots, \overline{f_n}$ span $\m_P/\m_P^2$.
+    \end{proposition}
+    The forward direction is very clear, the reverse is surprising: 
+    \begin{proof}
+        Let $B = \O_P/(f_1, \dots, f_n)$, it contains $\m_P$. Let $A = \m_P/(f_1, \dots, f_n)$, indeed $A$ is finite over $B$. We prove this proposition by contradiction, suppose $(f_1, \dots, f_n) \subsetneq \m_P$, then $A \neq 0$, and by Nakayama $\m_P(\m_P/(f_1, \dots, f_N))$ which is a proper subset of $\m_P/(f_1, \dots, f_n)$. Then for any $x \in \m_P/(f_1, \dots, f_n)$, since $f_1, \dots, f_n$ span $\m_P/\m_P^2$, $x = u_1f_1 + \dots u_nf_n$, so $x \in \m_P(\m_P/(f_1, \dots, f_n))$, contradiction.  
+    \end{proof}
+    We can now prove theorem \ref{thm:1_int}:
+    \begin{proof}
+        First suppose $I_P(C_1, C_2) = 1$. Then $\dim \O_P/(f, g) = 1$. Then $f(P) = g(P) = 0$. Then $f = ax+by + \dots $ and $g = cx + dy + ...$. Hence if $(f, g) \subset \m_P$, $\overline{f}, \overline{g} \in \m_P/\m_P^2$. Dimension of this ring $=1$ iff $(f, g) = \m_P$, hence $\langle \overline{f}, \overline{g} \rangle = \m_P/\m_P^2$. The other direction is given by the fact that since $\overline{f}$ and $\overline{g}$ are non-zero, in the expression for $f$ and $g$ above $\det \begin{bmatrix}
+            a & b \\
+            c & d
+        \end{bmatrix} \neq 0$ (since that's the only way lines intersect transversally). (TODO)
+    \end{proof}
+    We will now talk about cubic curves and addition law on elliptic curves. 
+    \begin{theorem}
+        [Calyey-Bacharach] For $C_1, C_2 \in \P^2$ cubic curves intersecting at $9$ distinct points $P_1, \dots, P_9$, suppose that a cubic curve $C$ contains all $P_1, \dots, P_8$. Then $C \ni P_9$. 
+    \end{theorem}
+    \begin{proof}
+        (Proof in Tau) Space of cubic curves $\P^9 = \P[\S^3V^2]^{X^aY^bZ^c}$ ($a + b + c = 3$). The set of cubic curves passing through a particular point $P$ is a hyperplane $H_P$ in $\P^5$. We claim that $\bigcap_{i=1}^8 H_{P_i} = \P^1$. This implies the theorem since then indeed $C = \lambda C_1 + \mu C_2$ and so $C(P_9) = \lambda C_1(P_9) + \mu C_2(P_9) = 0$. \par 
+        Indeed, suppose $\dim \cap_{i=1}^8 H_{P_i} \geq 2$, so for any two points $X, Y \in \P^2$ there is a cubic containing $P_1, \dots, P_8, X, Y$. Step 1: No eight four points out of $P_1, \dots, P_8$ are on the same line, no $7$ points are on the same quadratic curve. Step 5: Any $5$ of the $P_i$'s lie on a unique quadric (if there are two distinct quadrics passing through $5$ of the pts, then they must intersect in an irreducible component so both are a union of two lines, and this is unique since no $4$ points lie on a line). The rest of the steps are casework on how many points can like on what components of some cubic (TODO). 
+    \end{proof}
+
 \end{document} 
